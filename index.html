@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>韩鹏飞 | 来自文昌的追风者</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --paper: #fff7df;
+      --soft: rgba(255, 247, 223, .72);
+      --faint: rgba(255, 247, 223, .45);
+      --ember: #ff8b5f;
+      --cyan: #9ac3d0;
+      --ink: #030508;
+      --panel: rgba(5, 8, 13, .72);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #050608;
+      color: var(--paper);
+      font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+
+    button, textarea, input {
+      color: inherit;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      position: relative;
+      isolation: isolate;
+      background-image:
+        linear-gradient(90deg, rgba(2,4,7,.76) 0%, rgba(2,4,7,.24) 24%, rgba(2,4,7,.08) 54%, rgba(2,4,7,.48) 100%),
+        linear-gradient(180deg, rgba(2,4,7,.48) 0%, rgba(2,4,7,.02) 38%, rgba(2,4,7,.88) 100%),
+        url("assets/wenchang-sunset.png");
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 19% 67%, rgba(0,0,0,.64) 0 18%, transparent 40%),
+        radial-gradient(circle at 67% 62%, rgba(255, 144, 72, .2), transparent 17%),
+        linear-gradient(180deg, rgba(0,0,0,.58) 0 8.5%, transparent 8.5% 90.5%, rgba(0,0,0,.84) 90.5%);
+      mix-blend-mode: multiply;
+    }
+
+    .app::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.016) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 50% 54%, transparent 0 50%, rgba(0,0,0,.36) 100%);
+      opacity: .62;
+    }
+
+    .topline {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      justify-content: space-between;
+      gap: 22px;
+      align-items: center;
+      padding: clamp(22px, 4vw, 46px) clamp(22px, 6vw, 82px) 0;
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 10px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: rgba(255, 247, 223, .74);
+      text-shadow: 0 2px 12px rgba(0,0,0,.72);
+    }
+
+    .mark {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ember);
+      box-shadow: 0 0 18px rgba(255,139,95,.82);
+    }
+
+    .view {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.015);
+      transition: opacity .65s ease, transform .65s ease, visibility .65s;
+    }
+
+    .view.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .home-copy {
+      align-self: start;
+      width: min(600px, calc(100% - 48px));
+      margin-left: clamp(24px, 6.5vw, 92px);
+      margin-top: clamp(116px, 18vh, 172px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .home-copy::before,
+    .scene-copy::before {
+      content: "";
+      position: absolute;
+      left: -28px;
+      top: -18px;
+      bottom: -22px;
+      width: min(48vw, 560px);
+      z-index: -1;
+      background: linear-gradient(90deg, rgba(0,0,0,.38), rgba(0,0,0,.13) 58%, transparent);
+      filter: blur(20px);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      color: rgba(255, 247, 223, .78);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 10px;
+      letter-spacing: .48em;
+      text-transform: uppercase;
+      text-shadow: 0 3px 14px rgba(0,0,0,.75);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--ember), rgba(255,139,95,.15));
+      box-shadow: 0 0 18px rgba(255,139,95,.72);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(54px, 8vw, 104px);
+      line-height: .9;
+      font-weight: 400;
+      letter-spacing: .08em;
+      color: #fff4d5;
+      text-shadow:
+        0 2px 0 rgba(0,0,0,.18),
+        0 10px 30px rgba(0,0,0,.8),
+        0 0 16px rgba(255,222,168,.16);
+    }
+
+    .subtitle {
+      margin: 12px 0 0 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255, 247, 223, .9);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(14px, 1.35vw, 18px);
+      letter-spacing: .22em;
+      text-shadow: 0 6px 20px rgba(0,0,0,.82);
+    }
+
+    .subtitle::after {
+      content: "";
+      width: clamp(48px, 8vw, 104px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,247,223,.64), transparent);
+    }
+
+    .statement {
+      margin: 20px 0 0;
+      max-width: 520px;
+      color: rgba(255,247,223,.86);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(14px, 1.08vw, 17px);
+      line-height: 1.9;
+      letter-spacing: .055em;
+      text-shadow: 0 4px 18px rgba(0,0,0,.86);
+    }
+
+    .statement strong {
+      color: #fff9e8;
+      font-weight: 400;
+    }
+
+    .portal-nav {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      padding: 0 clamp(16px, 3vw, 42px) clamp(14px, 2vw, 26px);
+      background: linear-gradient(180deg, transparent, rgba(3,5,8,.58) 18%, rgba(3,5,8,.9));
+    }
+
+    .portal {
+      min-height: 102px;
+      padding: 18px clamp(16px, 1.8vw, 26px);
+      border: 0;
+      border-top: 1px solid rgba(255,247,223,.18);
+      background: rgba(255,247,223,.018);
+      text-align: left;
+      transition: background .28s ease, transform .28s ease, border-color .28s ease;
+    }
+
+    .portal:hover,
+    .portal:focus-visible {
+      background: rgba(255,139,95,.13);
+      border-color: rgba(255,139,95,.72);
+      transform: translateY(-6px);
+      outline: none;
+    }
+
+    .num {
+      font-family: "Times New Roman", Georgia, serif;
+      color: var(--ember);
+      font-size: 11px;
+      letter-spacing: .26em;
+      text-shadow: 0 0 14px rgba(255,139,95,.42);
+    }
+
+    .portal h2 {
+      margin: 9px 0 6px;
+      color: #fff7df;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(18px, 1.45vw, 24px);
+      font-weight: 400;
+      letter-spacing: .16em;
+      text-shadow: 0 4px 16px rgba(0,0,0,.68);
+    }
+
+    .portal p {
+      margin: 0;
+      color: rgba(255,247,223,.68);
+      font-size: 12px;
+      line-height: 1.55;
+      letter-spacing: .035em;
+      text-shadow: 0 3px 14px rgba(0,0,0,.7);
+    }
+
+    .back {
+      position: fixed;
+      z-index: 25;
+      top: clamp(72px, 10vh, 104px);
+      left: clamp(22px, 5vw, 70px);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,247,223,.22);
+      background: rgba(0,0,0,.24);
+      padding: 10px 14px;
+      color: rgba(255,247,223,.82);
+      font-size: 13px;
+      letter-spacing: .12em;
+      backdrop-filter: blur(12px);
+    }
+
+    .back.is-visible {
+      display: inline-flex;
+    }
+
+    .module-add {
+      position: fixed;
+      z-index: 25;
+      top: clamp(72px, 10vh, 104px);
+      right: clamp(22px, 5vw, 70px);
+      width: 48px;
+      height: 48px;
+      display: none;
+      place-items: center;
+      border: 1px solid rgba(255,247,223,.28);
+      border-radius: 50%;
+      background: rgba(0,0,0,.28);
+      color: #fff7df;
+      font-size: 28px;
+      line-height: 1;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 34px rgba(255,139,95,.14);
+      transition: transform .24s ease, border-color .24s ease, background .24s ease;
+    }
+
+    .module-tools {
+      position: fixed;
+      z-index: 25;
+      top: clamp(72px, 10vh, 104px);
+      right: clamp(22px, 5vw, 70px);
+      display: none;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .module-tools.is-visible {
+      display: flex;
+    }
+
+    .show-all,
+    .module-add {
+      position: static;
+    }
+
+    .show-all {
+      min-width: 96px;
+      height: 48px;
+      border: 1px solid rgba(255,247,223,.24);
+      background: rgba(0,0,0,.28);
+      padding: 0 16px;
+      color: rgba(255,247,223,.86);
+      letter-spacing: .12em;
+      backdrop-filter: blur(12px);
+      transition: transform .24s ease, border-color .24s ease, background .24s ease;
+    }
+
+    .show-all:hover,
+    .show-all:focus-visible,
+    .module-add:hover,
+    .module-add:focus-visible {
+      transform: scale(1.06);
+      border-color: rgba(255,139,95,.7);
+      background: rgba(255,139,95,.16);
+      outline: none;
+    }
+
+    .scene {
+      grid-template-columns: minmax(24px, 6vw) minmax(0, 1240px) minmax(24px, 6vw);
+      grid-template-rows: 1fr;
+      align-items: center;
+      padding-top: 92px;
+      padding-bottom: 30px;
+      background:
+        radial-gradient(circle at var(--glow-x, 72%) var(--glow-y, 56%), rgba(255,139,95,.14), transparent 22%),
+        linear-gradient(90deg, rgba(2,4,7,.86), rgba(2,4,7,.24) 48%, rgba(2,4,7,.82));
+      backdrop-filter: blur(3px);
+    }
+
+    .scene-inner {
+      grid-column: 2;
+      display: grid;
+      grid-template-columns: minmax(280px, .82fr) minmax(360px, 1.18fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: center;
+      max-height: calc(100vh - 130px);
+    }
+
+    .scene-copy {
+      position: relative;
+      align-self: end;
+    }
+
+    .scene-label {
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 12px;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+    }
+
+    .scene h2 {
+      margin: 16px 0 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(44px, 6vw, 92px);
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .scene-lead {
+      margin: 26px 0 0;
+      color: var(--soft);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 2;
+      letter-spacing: .045em;
+    }
+
+    .scene-board {
+      min-height: min(64vh, 620px);
+      max-height: min(68vh, 680px);
+      overflow: hidden;
+      border: 1px solid rgba(255,247,223,.14);
+      background: linear-gradient(180deg, rgba(5,8,13,.78), rgba(5,8,13,.42));
+      box-shadow: 0 34px 110px rgba(0,0,0,.4);
+      backdrop-filter: blur(18px);
+    }
+
+    .wheel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(250px, 42%);
+      gap: 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+    }
+
+    .wheel > * {
+      scroll-snap-align: start;
+    }
+
+    .wheel::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .wheel::-webkit-scrollbar-track {
+      background: rgba(255,247,223,.08);
+    }
+
+    .wheel::-webkit-scrollbar-thumb {
+      background: rgba(255,139,95,.5);
+    }
+
+    .theme-wheel,
+    .project-wheel,
+    .memory-orbit {
+      align-items: center;
+      min-height: 360px;
+      padding-inline: 18%;
+      mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+    }
+
+    .theme-token,
+    .project-token {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      opacity: .32;
+      transform: scale(.82);
+      transition: opacity .32s ease, transform .32s ease, text-shadow .32s ease;
+    }
+
+    .theme-token.is-centered,
+    .project-token.is-centered,
+    .theme-token:hover,
+    .project-token:hover {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .theme-token h3,
+    .project-token h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 400;
+      letter-spacing: .14em;
+      color: #fff4d5;
+      text-align: center;
+      text-shadow: 0 16px 48px rgba(0,0,0,.78), 0 0 22px rgba(255,139,95,.18);
+    }
+
+    .theme-token p,
+    .project-token p {
+      display: none;
+    }
+
+    .board-tabs {
+      display: flex;
+      gap: 1px;
+      border-bottom: 1px solid rgba(255,247,223,.12);
+      background: rgba(255,247,223,.04);
+    }
+
+    .tab {
+      flex: 1;
+      border: 0;
+      background: transparent;
+      padding: 14px 16px;
+      color: var(--soft);
+      font-size: 13px;
+      letter-spacing: .12em;
+    }
+
+    .tab.is-active {
+      background: rgba(255,139,95,.13);
+      color: var(--paper);
+    }
+
+    .board-panel {
+      display: none;
+      height: calc(min(68vh, 680px) - 50px);
+      overflow: auto;
+      padding: clamp(20px, 3vw, 36px);
+    }
+
+    .board-panel.is-active {
+      display: block;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .info-card,
+    .photo-tile,
+    .entry {
+      border: 1px solid rgba(255,247,223,.13);
+      background: linear-gradient(180deg, rgba(255,247,223,.07), rgba(255,247,223,.025));
+      padding: 18px;
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+
+    .info-card:hover,
+    .photo-tile:hover,
+    .entry:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,139,95,.48);
+      background: linear-gradient(180deg, rgba(255,139,95,.1), rgba(255,247,223,.03));
+    }
+
+    .info-card h3,
+    .entry h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .info-card p,
+    .entry p {
+      margin: 14px 0 0;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .photo-grid.wheel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(220px, 34%);
+      grid-template-columns: none;
+    }
+
+    .memory-orbit {
+      grid-auto-columns: minmax(190px, 28%);
+      min-height: 410px;
+    }
+
+    .photo-tile {
+      min-height: 150px;
+      display: grid;
+      align-content: end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .memory-ball {
+      width: clamp(140px, 16vw, 220px);
+      aspect-ratio: 1;
+      min-height: 0;
+      place-self: center;
+      align-content: center;
+      justify-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 28%, rgba(255,247,223,.52), rgba(255,139,95,.22) 34%, rgba(9,18,28,.72) 72%);
+      box-shadow: inset -24px -28px 48px rgba(0,0,0,.36), 0 28px 80px rgba(0,0,0,.42);
+      opacity: .48;
+      transform: scale(.82);
+      transition: opacity .32s ease, transform .32s ease, box-shadow .32s ease;
+    }
+
+    .memory-ball.is-centered,
+    .memory-ball:hover {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: inset -24px -28px 48px rgba(0,0,0,.34), 0 34px 100px rgba(255,139,95,.16);
+    }
+
+    .memory-ball::before {
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255,255,255,.5), transparent 18%),
+        var(--tile-bg, linear-gradient(135deg, rgba(255,139,95,.34), rgba(154,195,208,.2)));
+    }
+
+    .photo-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.64)),
+        var(--tile-bg, linear-gradient(135deg, rgba(255,139,95,.28), rgba(154,195,208,.18)));
+      opacity: .92;
+    }
+
+    .photo-tile span {
+      position: relative;
+      z-index: 1;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      letter-spacing: .08em;
+    }
+
+    .memory-ball span {
+      font-size: clamp(22px, 3vw, 34px);
+      text-shadow: 0 8px 24px rgba(0,0,0,.65);
+    }
+
+    .entry + .entry {
+      margin-top: 14px;
+    }
+
+    .editable {
+      cursor: pointer;
+    }
+
+    .editable::after {
+      content: "点击修改";
+      display: inline-block;
+      margin-top: 14px;
+      color: rgba(255,139,95,.8);
+      font-size: 12px;
+      letter-spacing: .12em;
+    }
+
+    .composer {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .composer input,
+    .composer textarea {
+      width: 100%;
+      border: 1px solid rgba(255,247,223,.16);
+      background: rgba(0,0,0,.26);
+      padding: 12px;
+      outline: none;
+    }
+
+    .composer textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .composer button {
+      justify-self: start;
+      border: 1px solid rgba(255,139,95,.48);
+      background: rgba(255,139,95,.12);
+      padding: 10px 16px;
+    }
+
+    .hint {
+      color: var(--faint);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .editor {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .editor.is-open {
+      display: flex;
+    }
+
+    .reader {
+      position: fixed;
+      inset: 0;
+      z-index: 38;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .reader.is-open {
+      display: flex;
+    }
+
+    .reader-card,
+    .editor-card {
+      width: min(680px, 100%);
+      border: 1px solid rgba(255,247,223,.2);
+      background: linear-gradient(180deg, rgba(18, 26, 34, .98), rgba(5, 7, 10, .98));
+      padding: clamp(24px, 5vw, 42px);
+      box-shadow: 0 36px 120px rgba(0,0,0,.58);
+    }
+
+    .reader-card {
+      width: min(860px, 100%);
+      max-height: min(760px, calc(100vh - 44px));
+      overflow: auto;
+    }
+
+    .reader-card h2,
+    .editor-card h2 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(30px, 5vw, 50px);
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .reader-card p {
+      margin: 20px 0 0;
+      color: var(--soft);
+      font-size: 16px;
+      line-height: 2;
+    }
+
+    .reader-visual {
+      display: none;
+      height: min(42vh, 320px);
+      margin-top: 24px;
+      border: 1px solid rgba(255,247,223,.14);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.54)),
+        url("assets/wenchang-sunset.png");
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 80px rgba(0,0,0,.35);
+    }
+
+    .reader-visual.is-visible {
+      display: block;
+    }
+
+    .all-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .all-item {
+      border: 1px solid rgba(255,247,223,.14);
+      background: rgba(255,247,223,.045);
+      padding: 16px;
+      text-align: left;
+    }
+
+    .all-item h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .all-item p {
+      margin: 10px 0 0;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .editor-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .editor-form input,
+    .editor-form textarea {
+      width: 100%;
+      border: 1px solid rgba(255,247,223,.16);
+      background: rgba(0,0,0,.28);
+      padding: 12px;
+      outline: none;
+    }
+
+    .editor-form textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .editor-actions button {
+      border: 1px solid rgba(255,247,223,.22);
+      background: rgba(255,247,223,.05);
+      padding: 10px 16px;
+    }
+
+    .editor-actions button:first-child {
+      border-color: rgba(255,139,95,.56);
+      background: rgba(255,139,95,.14);
+    }
+
+    .editor-actions button:hover {
+      border-color: rgba(255,139,95,.7);
+    }
+
+    .hotspot {
+      position: fixed;
+      z-index: 18;
+      right: clamp(24px, 4vw, 56px);
+      top: 50%;
+      translate: 0 -50%;
+      display: grid;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,247,223,.58);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 0 18px rgba(255,139,95,.26);
+    }
+
+    .dot.is-active {
+      background: var(--ember);
+      border-color: var(--ember);
+    }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+
+      .app {
+        min-height: 100svh;
+        background-position: 43% center;
+      }
+
+      .topline {
+        position: absolute;
+        grid-template-columns: 1fr auto;
+        row-gap: 10px;
+      }
+
+      .topline span:last-child { grid-column: 1 / -1; }
+
+      .view {
+        position: relative;
+        min-height: 100svh;
+        display: none;
+      }
+
+      .view.is-active {
+        display: grid;
+      }
+
+      .home-copy {
+        margin-top: 134px;
+        margin-left: 24px;
+      }
+
+      h1 { font-size: clamp(58px, 17vw, 88px); }
+
+      .portal-nav {
+        grid-template-columns: 1fr;
+        padding-inline: 18px;
+      }
+
+      .portal {
+        min-height: auto;
+        padding: 15px 4px;
+      }
+
+      .scene {
+        padding-top: 116px;
+        padding-bottom: 22px;
+      }
+
+      .scene-inner {
+        grid-template-columns: 1fr;
+        max-height: none;
+      }
+
+      .scene-board {
+        min-height: auto;
+        max-height: none;
+      }
+
+      .board-panel {
+        height: auto;
+        max-height: none;
+      }
+
+      .card-grid,
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hotspot { display: none; }
+
+      .module-tools {
+        top: auto;
+        right: 20px;
+        bottom: 20px;
+      }
+
+      .show-all {
+        min-width: 82px;
+      }
+
+      .wheel,
+      .photo-grid.wheel {
+        grid-auto-columns: minmax(230px, 82%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="app">
+    <div class="topline">
+      <span>Wenchang, Hainan</span>
+      <span class="mark" aria-hidden="true"></span>
+      <span>Shot in the wind before sunset</span>
+    </div>
+
+    <button class="back" id="backButton" type="button">← 返回首页</button>
+    <div class="module-tools" id="moduleTools">
+      <button class="show-all" id="showAll" type="button">全部展示</button>
+      <button class="module-add" id="moduleAdd" type="button" aria-label="添加当前模块内容">+</button>
+    </div>
+
+    <section class="view is-active" id="home" aria-label="首页">
+      <div class="home-copy">
+        <div class="eyebrow">A personal film</div>
+        <h1>韩鹏飞</h1>
+        <div class="subtitle">来自文昌的追风者</div>
+        <p class="statement"><strong>我想把自己放进一场黄昏的长镜头里。</strong>海风、晚霞、沉默的风景，还有正在发生的思考与热爱。</p>
+      </div>
+
+      <nav class="portal-nav" aria-label="探索入口">
+        <button class="portal" type="button" data-view="homeplace">
+          <span class="num">01</span>
+          <h2>风从文昌来</h2>
+          <p>进入家乡介绍。</p>
+        </button>
+        <button class="portal" type="button" data-view="thoughts">
+          <span class="num">02</span>
+          <h2>思考</h2>
+          <p>添加想法与短文。</p>
+        </button>
+        <button class="portal" type="button" data-view="experiences">
+          <span class="num">03</span>
+          <h2>经历</h2>
+          <p>记录项目与成长。</p>
+        </button>
+        <button class="portal" type="button" data-view="memories">
+          <span class="num">04</span>
+          <h2>记忆</h2>
+          <p>收藏照片与片段。</p>
+        </button>
+      </nav>
+    </section>
+
+    <section class="view scene" id="homeplace" aria-label="家乡介绍">
+      <div class="scene-inner">
+        <div class="scene-copy">
+          <div class="scene-label">Chapter 01</div>
+          <h2>风从文昌来</h2>
+          <p class="scene-lead">这里是我的来处。文昌的海风、晚霞、椰影，会让人慢下来，也会让人愿意抬头看远处。</p>
+        </div>
+        <div class="scene-board">
+          <div class="board-tabs">
+            <button class="tab is-active" type="button" data-tab="place-story">印象</button>
+            <button class="tab" type="button" data-tab="place-map">地点</button>
+            <button class="tab" type="button" data-tab="place-gallery">风景</button>
+          </div>
+          <div class="board-panel is-active" id="place-story">
+            <div class="card-grid wheel" id="placeEntries">
+              <article class="info-card editable" data-module="place" data-id="place-1">
+                <h3>海风</h3>
+                <p>风是这个页面的第一层性格。它轻，但一直在，把所有画面都连接起来。</p>
+              </article>
+              <article class="info-card editable" data-module="place" data-id="place-2">
+                <h3>椰影</h3>
+                <p>椰子树和亭子的剪影不只是风景，也像一种安静的坐标，提醒我从哪里来。</p>
+              </article>
+              <article class="info-card editable" data-module="place" data-id="place-3">
+                <h3>晚霞</h3>
+                <p>我喜欢看着好看的风景发呆。很多想法，就是在这样的慢时刻里浮上来的。</p>
+              </article>
+              <article class="info-card editable" data-module="place" data-id="place-4">
+                <h3>文昌</h3>
+                <p>这里以后可以继续添加家乡介绍、地点故事、照片和你想写下来的记忆。</p>
+              </article>
+            </div>
+          </div>
+          <div class="board-panel" id="place-map">
+            <div class="entry">
+              <h3>可以添加地点</h3>
+              <p>例如：文昌海边、老街、学校附近、常去看风景的地方。每个地点都可以写成一段小故事。</p>
+            </div>
+          </div>
+          <div class="board-panel" id="place-gallery">
+            <div class="photo-grid">
+              <div class="photo-tile"><span>晚霞</span></div>
+              <div class="photo-tile" style="--tile-bg:linear-gradient(135deg, rgba(154,195,208,.24), rgba(255,247,223,.1));"><span>椰影</span></div>
+              <div class="photo-tile" style="--tile-bg:linear-gradient(135deg, rgba(255,139,95,.18), rgba(20,35,48,.42));"><span>海面</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view scene" id="thoughts" aria-label="思考">
+      <div class="scene-inner">
+        <div class="scene-copy">
+          <div class="scene-label">Chapter 02</div>
+          <h2>思考</h2>
+          <p class="scene-lead">这里不是正式文章列表，更像一块随时可以点亮的玻璃。你可以把最近想的问题、喜欢的句子、灵感都放进来。</p>
+        </div>
+        <div class="scene-board">
+          <div class="board-tabs">
+            <button class="tab is-active" type="button" data-tab="thought-list">片段</button>
+            <button class="tab" type="button" data-tab="thought-add">编辑说明</button>
+          </div>
+          <div class="board-panel is-active" id="thought-list">
+            <div class="entry-list wheel theme-wheel" id="thoughtEntries">
+              <article class="theme-token editable" data-module="thought" data-id="thought-1">
+                <h3>自由</h3>
+                <p>我想接触新鲜事物，也想把好奇做成真正能被看见的东西。</p>
+              </article>
+            </div>
+          </div>
+          <div class="board-panel" id="thought-add">
+            <div class="composer">
+              <p class="hint">点击右上角的“+”可以添加新的思考。点击已有内容可以进入修改界面。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view scene" id="experiences" aria-label="经历">
+      <div class="scene-inner">
+        <div class="scene-copy">
+          <div class="scene-label">Chapter 03</div>
+          <h2>经历</h2>
+          <p class="scene-lead">经历不只是结果。项目、课程、比赛、实践，都可以被整理成一个个片段：为什么做、怎么做、学到了什么。</p>
+        </div>
+        <div class="scene-board">
+          <div class="board-tabs">
+            <button class="tab is-active" type="button" data-tab="exp-list">项目</button>
+            <button class="tab" type="button" data-tab="exp-add">编辑说明</button>
+          </div>
+          <div class="board-panel is-active" id="exp-list">
+            <div class="entry-list wheel project-wheel" id="experienceEntries">
+              <article class="project-token editable" data-module="experience" data-id="experience-1">
+                <h3>个人网页</h3>
+                <p>从一个想法开始，把“我是谁”变成可以被点击、被探索、被感受的网页。</p>
+              </article>
+            </div>
+          </div>
+          <div class="board-panel" id="exp-add">
+            <div class="composer">
+              <p class="hint">点击右上角的“+”可以添加新的经历。点击已有项目可以进入修改界面。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view scene" id="memories" aria-label="记忆">
+      <div class="scene-inner">
+        <div class="scene-copy">
+          <div class="scene-label">Chapter 04</div>
+          <h2>记忆</h2>
+          <p class="scene-lead">篮球、风景、发呆的时刻，都可以放在这里。它们不是附属信息，而是了解你的另一条路径。</p>
+        </div>
+        <div class="scene-board">
+          <div class="board-tabs">
+            <button class="tab is-active" type="button" data-tab="memory-gallery">照片墙</button>
+            <button class="tab" type="button" data-tab="memory-notes">片段</button>
+          </div>
+          <div class="board-panel is-active" id="memory-gallery">
+            <div class="photo-grid wheel memory-orbit" id="memoryEntries">
+              <div class="photo-tile memory-ball editable" data-module="memory" data-id="memory-1"><span>篮球</span></div>
+              <div class="photo-tile memory-ball editable" data-module="memory" data-id="memory-2" style="--tile-bg:linear-gradient(135deg, rgba(255,247,223,.18), rgba(154,195,208,.2));"><span>风景</span></div>
+              <div class="photo-tile memory-ball editable" data-module="memory" data-id="memory-3" style="--tile-bg:linear-gradient(135deg, rgba(255,139,95,.2), rgba(5,8,13,.48));"><span>黄昏</span></div>
+              <div class="photo-tile memory-ball editable" data-module="memory" data-id="memory-4" style="--tile-bg:linear-gradient(135deg, rgba(154,195,208,.18), rgba(255,139,95,.16));"><span>日常</span></div>
+              <div class="photo-tile memory-ball editable" data-module="memory" data-id="memory-5" style="--tile-bg:linear-gradient(135deg, rgba(255,139,95,.12), rgba(255,247,223,.12));"><span>朋友</span></div>
+              <div class="photo-tile memory-ball editable" data-module="memory" data-id="memory-6" style="--tile-bg:linear-gradient(135deg, rgba(20,35,48,.58), rgba(255,139,95,.16));"><span>未来</span></div>
+            </div>
+          </div>
+          <div class="board-panel" id="memory-notes">
+            <article class="entry editable" data-module="memory" data-id="memory-note-1">
+              <h3>一个安静的时刻</h3>
+              <p>看着好看的风景发呆时，我会觉得世界很慢，也很清楚。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hotspot" aria-hidden="true">
+      <span class="dot is-active" data-dot="home"></span>
+      <span class="dot" data-dot="homeplace"></span>
+      <span class="dot" data-dot="thoughts"></span>
+      <span class="dot" data-dot="experiences"></span>
+      <span class="dot" data-dot="memories"></span>
+    </div>
+  </main>
+
+  <div class="editor" id="editor" aria-hidden="true">
+    <div class="editor-card" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+      <h2 id="editorTitle">添加内容</h2>
+      <div class="editor-form">
+        <input id="editTitle" placeholder="标题">
+        <textarea id="editText" placeholder="写下你想添加或修改的内容"></textarea>
+        <p class="hint" id="editorHint">内容会保存在当前浏览器的本地存储中。</p>
+      </div>
+      <div class="editor-actions">
+        <button type="button" id="saveEdit">保存</button>
+        <button type="button" id="deleteEdit">删除</button>
+        <button type="button" id="closeEditor">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reader" id="reader" aria-hidden="true">
+    <div class="reader-card" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+      <h2 id="readerTitle"></h2>
+      <p id="readerText"></p>
+      <div class="reader-visual" id="readerVisual"></div>
+      <div class="all-list" id="allList"></div>
+      <div class="editor-actions">
+        <button type="button" id="editFromReader">修改</button>
+        <button type="button" id="closeReader">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const views = Array.from(document.querySelectorAll(".view"));
+    const backButton = document.getElementById("backButton");
+    const moduleTools = document.getElementById("moduleTools");
+    const moduleAdd = document.getElementById("moduleAdd");
+    const showAll = document.getElementById("showAll");
+    const dots = Array.from(document.querySelectorAll("[data-dot]"));
+    const editor = document.getElementById("editor");
+    const editorTitle = document.getElementById("editorTitle");
+    const editTitle = document.getElementById("editTitle");
+    const editText = document.getElementById("editText");
+    const editorHint = document.getElementById("editorHint");
+    const saveEdit = document.getElementById("saveEdit");
+    const deleteEdit = document.getElementById("deleteEdit");
+    const closeEditor = document.getElementById("closeEditor");
+    const reader = document.getElementById("reader");
+    const readerTitle = document.getElementById("readerTitle");
+    const readerText = document.getElementById("readerText");
+    const readerVisual = document.getElementById("readerVisual");
+    const allList = document.getElementById("allList");
+    const editFromReader = document.getElementById("editFromReader");
+    const closeReader = document.getElementById("closeReader");
+    let currentView = "home";
+    let editing = { mode: "add", module: "", id: "" };
+    let reading = null;
+
+    const moduleConfig = {
+      homeplace: {
+        module: "place",
+        label: "家乡",
+        storage: "hanpf-place",
+        target: "placeEntries",
+        kind: "card"
+      },
+      thoughts: {
+        module: "thought",
+        label: "思考",
+        storage: "hanpf-thoughts",
+        target: "thoughtEntries",
+        kind: "theme"
+      },
+      experiences: {
+        module: "experience",
+        label: "经历",
+        storage: "hanpf-experiences",
+        target: "experienceEntries",
+        kind: "project"
+      },
+      memories: {
+        module: "memory",
+        label: "记忆",
+        storage: "hanpf-memories",
+        target: "memoryEntries",
+        kind: "photo"
+      }
+    };
+
+    function showView(id) {
+      currentView = id;
+      views.forEach((view) => view.classList.toggle("is-active", view.id === id));
+      dots.forEach((dot) => dot.classList.toggle("is-active", dot.dataset.dot === id));
+      backButton.classList.toggle("is-visible", id !== "home");
+      moduleTools.classList.toggle("is-visible", id !== "home");
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+    document.querySelectorAll("[data-view]").forEach((button) => {
+      button.addEventListener("click", () => showView(button.dataset.view));
+    });
+
+    backButton.addEventListener("click", () => showView("home"));
+
+    document.querySelectorAll(".board-tabs").forEach((tabs) => {
+      tabs.addEventListener("click", (event) => {
+        const tab = event.target.closest("[data-tab]");
+        if (!tab) return;
+        const board = tabs.closest(".scene-board");
+        board.querySelectorAll(".tab").forEach((item) => item.classList.toggle("is-active", item === tab));
+        board.querySelectorAll(".board-panel").forEach((panel) => panel.classList.toggle("is-active", panel.id === tab.dataset.tab));
+      });
+    });
+
+    function createContentElement(item, config) {
+      const article = document.createElement(config.kind === "photo" ? "div" : "article");
+      article.className = config.kind === "card"
+        ? "info-card editable"
+        : config.kind === "photo"
+          ? "photo-tile memory-ball editable"
+          : config.kind === "theme"
+            ? "theme-token editable"
+            : config.kind === "project"
+              ? "project-token editable"
+              : "entry editable";
+      article.dataset.module = config.module;
+      article.dataset.id = item.id;
+      if (config.kind === "photo") {
+        const span = document.createElement("span");
+        span.textContent = item.title;
+        article.title = item.text;
+        article.appendChild(span);
+        return article;
+      }
+      const heading = document.createElement("h3");
+      heading.textContent = item.title;
+      const paragraph = document.createElement("p");
+      paragraph.textContent = item.text;
+      article.append(heading, paragraph);
+      return article;
+    }
+
+    function storedItems(config) {
+      return JSON.parse(localStorage.getItem(config.storage) || "[]");
+    }
+
+    function saveItems(config, items) {
+      localStorage.setItem(config.storage, JSON.stringify(items));
+    }
+
+    function loadStoredEntries(config) {
+      const target = document.getElementById(config.target);
+      storedItems(config).forEach((item) => target.appendChild(createContentElement(item, config)));
+    }
+
+    function updateWheelFocus(container) {
+      const items = Array.from(container.children);
+      const containerCenter = container.scrollLeft + container.clientWidth / 2;
+      let closest = null;
+      let closestDistance = Infinity;
+      items.forEach((item) => {
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+        const distance = Math.abs(containerCenter - itemCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closest = item;
+        }
+      });
+      items.forEach((item) => item.classList.toggle("is-centered", item === closest));
+    }
+
+    function setupWheelFocus() {
+      document.querySelectorAll(".theme-wheel, .project-wheel, .memory-orbit").forEach((wheel) => {
+        updateWheelFocus(wheel);
+        wheel.addEventListener("scroll", () => updateWheelFocus(wheel), { passive: true });
+      });
+    }
+
+    function openEditor(config, item = null) {
+      editing = {
+        mode: item ? "edit" : "add",
+        module: config.module,
+        id: item ? item.id : ""
+      };
+      editorTitle.textContent = item ? `修改${config.label}` : `添加${config.label}`;
+      editTitle.value = item ? item.title : "";
+      editText.value = item ? item.text : "";
+      editorHint.textContent = item ? "修改后会保存在当前浏览器中。" : "新增内容会保存在当前浏览器中。";
+      deleteEdit.style.display = item ? "inline-block" : "none";
+      editor.classList.add("is-open");
+      editor.setAttribute("aria-hidden", "false");
+      editTitle.focus();
+    }
+
+    function closeEditorPanel() {
+      editor.classList.remove("is-open");
+      editor.setAttribute("aria-hidden", "true");
+    }
+
+    function configByModule(module) {
+      return Object.values(moduleConfig).find((config) => config.module === module);
+    }
+
+    function itemFromElement(element) {
+      return {
+        id: element.dataset.id,
+        title: element.querySelector("h3, span")?.textContent || "",
+        text: element.querySelector("p")?.textContent || element.title || "",
+        module: element.dataset.module
+      };
+    }
+
+    function openReader(item, allItems = null) {
+      reading = item;
+      readerTitle.textContent = item.title;
+      readerText.textContent = item.text || "这里还没有详细说明。";
+      readerVisual.classList.toggle("is-visible", item.module === "memory");
+      allList.innerHTML = "";
+      allList.style.display = allItems ? "grid" : "none";
+      editFromReader.style.display = allItems ? "none" : "inline-block";
+      if (allItems) {
+        allItems.forEach((entry) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "all-item";
+          const heading = document.createElement("h3");
+          heading.textContent = entry.title;
+          const paragraph = document.createElement("p");
+          paragraph.textContent = entry.text || "这里还没有详细说明。";
+          button.append(heading, paragraph);
+          button.addEventListener("click", () => openReader(entry));
+          allList.appendChild(button);
+        });
+      }
+      reader.classList.add("is-open");
+      reader.setAttribute("aria-hidden", "false");
+    }
+
+    function closeReaderPanel() {
+      reader.classList.remove("is-open");
+      reader.setAttribute("aria-hidden", "true");
+    }
+
+    moduleAdd.addEventListener("click", () => {
+      const config = moduleConfig[currentView];
+      if (config) openEditor(config);
+    });
+
+    showAll.addEventListener("click", () => {
+      const config = moduleConfig[currentView];
+      if (!config) return;
+      const items = Array.from(document.querySelectorAll(`[data-module="${config.module}"]`)).map(itemFromElement);
+      openReader({ title: `${config.label} · 全部展示`, text: "点击任意条目查看完整内容。" }, items);
+    });
+
+    document.addEventListener("click", (event) => {
+      const editable = event.target.closest(".editable");
+      if (!editable) return;
+      if (editor.contains(editable) || reader.contains(editable)) return;
+      const config = configByModule(editable.dataset.module);
+      if (!config) return;
+      openReader(itemFromElement(editable));
+    });
+
+    editFromReader.addEventListener("click", () => {
+      if (!reading) return;
+      const config = configByModule(reading.module);
+      if (!config) return;
+      closeReaderPanel();
+      openEditor(config, reading);
+    });
+
+    saveEdit.addEventListener("click", () => {
+      const config = configByModule(editing.module);
+      const title = editTitle.value.trim();
+      const text = editText.value.trim();
+      if (!config || !title || !text) return;
+      if (editing.mode === "edit") {
+        const target = document.querySelector(`[data-module="${config.module}"][data-id="${editing.id}"]`);
+        if (target) {
+          const heading = target.querySelector("h3, span");
+          const paragraph = target.querySelector("p");
+          if (heading) heading.textContent = title;
+          if (paragraph) paragraph.textContent = text;
+          target.title = text;
+        }
+        const updated = storedItems(config).map((item) => item.id === editing.id ? { ...item, title, text } : item);
+        saveItems(config, updated);
+        setupWheelFocus();
+      } else {
+        const item = { id: `${config.module}-${Date.now()}`, title, text };
+        document.getElementById(config.target).appendChild(createContentElement(item, config));
+        saveItems(config, [...storedItems(config), item]);
+        setupWheelFocus();
+      }
+      closeEditorPanel();
+    });
+
+    deleteEdit.addEventListener("click", () => {
+      const config = configByModule(editing.module);
+      if (!config || editing.mode !== "edit") return;
+      const target = document.querySelector(`[data-module="${config.module}"][data-id="${editing.id}"]`);
+      if (target) target.remove();
+      saveItems(config, storedItems(config).filter((item) => item.id !== editing.id));
+      closeEditorPanel();
+    });
+
+    closeEditor.addEventListener("click", closeEditorPanel);
+    editor.addEventListener("click", (event) => {
+      if (event.target === editor) closeEditorPanel();
+    });
+    closeReader.addEventListener("click", closeReaderPanel);
+    reader.addEventListener("click", (event) => {
+      if (event.target === reader) closeReaderPanel();
+    });
+
+    Object.values(moduleConfig).forEach(loadStoredEntries);
+    setupWheelFocus();
+    window.addEventListener("resize", setupWheelFocus);
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (editor.classList.contains("is-open")) closeEditorPanel();
+        else if (reader.classList.contains("is-open")) closeReaderPanel();
+        else showView("home");
+      }
+    });
+  </script>
+</body>
+</html>

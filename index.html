@@ -669,6 +669,7 @@
     const chapterView = document.getElementById("chapterView");
     const menu = document.getElementById("menu");
     const chapterKeys = Object.keys(chapters);
+    let currentChapterKey = chapterKeys[0];
 
     function showView(id) {
       views.forEach((view) => view.classList.toggle("is-active", view.id === id));
@@ -678,11 +679,18 @@
     function openChapter(key) {
       const chapter = chapters[key];
       if (!chapter) return;
+      currentChapterKey = key;
+      const index = chapterKeys.indexOf(key);
+      const previousKey = chapterKeys[(index - 1 + chapterKeys.length) % chapterKeys.length];
+      const nextKey = chapterKeys[(index + 1) % chapterKeys.length];
+      const previousTitle = chapters[previousKey].title;
+      const nextTitle = chapters[nextKey].title;
       chapterView.dataset.tone = chapter.tone;
       page.innerHTML = chapter.html + `
         <div class="chapter-actions">
+          <button type="button" data-chapter="${previousKey}">← 上一页：${previousTitle}</button>
           <button type="button" data-go="contents">回到目录</button>
-          <button type="button" data-random>随机读一页</button>
+          <button type="button" data-chapter="${nextKey}">下一页：${nextTitle} →</button>
         </div>
       `;
       showView("chapterView");
@@ -714,6 +722,14 @@
       if (event.key === "Escape") {
         if (menu.classList.contains("is-open")) menu.classList.remove("is-open");
         else showView("contents");
+      }
+      if (!document.getElementById("chapterView").classList.contains("is-active")) return;
+      const index = chapterKeys.indexOf(currentChapterKey);
+      if (event.key === "ArrowLeft") {
+        openChapter(chapterKeys[(index - 1 + chapterKeys.length) % chapterKeys.length]);
+      }
+      if (event.key === "ArrowRight") {
+        openChapter(chapterKeys[(index + 1) % chapterKeys.length]);
       }
     });
   </script>

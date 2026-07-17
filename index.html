@@ -318,6 +318,17 @@
       background: rgba(255,139,95,.14);
     }
 
+    .page .chapter-actions button {
+      color: currentColor;
+      border-color: color-mix(in srgb, currentColor 22%, transparent);
+      background: color-mix(in srgb, currentColor 6%, transparent);
+    }
+
+    .page .chapter-actions button:hover {
+      border-color: var(--ember);
+      background: rgba(162,77,50,.1);
+    }
+
     .contents {
       align-content: center;
       padding: clamp(28px, 6vw, 80px);
@@ -497,6 +508,26 @@
       border-radius: 2px;
     }
 
+    .chapter[data-tone="preface"] {
+      background:
+        linear-gradient(90deg, rgba(5,7,10,.24), rgba(5,7,10,.68)),
+        radial-gradient(circle at 20% 18%, rgba(255, 208, 167, .18), transparent 34%),
+        #1b1712;
+    }
+
+    .chapter[data-tone="preface"] .page {
+      --page-bg: #f7efe0;
+      width: min(900px, 100%);
+      border-radius: 2px;
+      background:
+        linear-gradient(90deg, rgba(29,26,21,.035), transparent 12%, transparent 88%, rgba(29,26,21,.04)),
+        linear-gradient(180deg, rgba(255,255,255,.38), transparent 34%),
+        #f7efe0;
+      box-shadow:
+        inset 22px 0 34px rgba(29,26,21,.035),
+        0 42px 140px rgba(0,0,0,.48);
+    }
+
     .chapter-label {
       color: var(--ember);
       font-family: "Times New Roman", Georgia, serif;
@@ -518,6 +549,105 @@
       color: color-mix(in srgb, currentColor 72%, transparent);
       font-size: 16px;
       line-height: 2;
+    }
+
+    .preface-hero {
+      min-height: 34vh;
+      display: grid;
+      align-content: end;
+      padding-bottom: clamp(26px, 4vw, 46px);
+      border-bottom: 1px solid rgba(29,26,21,.14);
+    }
+
+    .preface-lede {
+      width: min(680px, 100%);
+      margin-top: 28px;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      color: #17130f;
+      font-size: clamp(25px, 3.5vw, 42px);
+      line-height: 1.65;
+      letter-spacing: .08em;
+    }
+
+    .chapter-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 28px 0 42px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(29,26,21,.12);
+      color: rgba(29,26,21,.62);
+      font-size: 12px;
+      letter-spacing: .12em;
+    }
+
+    .chapter-meta span {
+      display: block;
+      color: #221a13;
+      margin-top: 6px;
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+
+    .preface-section {
+      width: min(720px, 100%);
+      margin: 0 auto 42px;
+    }
+
+    .preface-section h3,
+    .future-letter h3 {
+      margin: 0 0 12px;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .growth-line {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      width: min(760px, 100%);
+      margin: 46px auto;
+      border-top: 1px solid rgba(29,26,21,.18);
+    }
+
+    .growth-line div {
+      position: relative;
+      padding: 22px 16px 0 0;
+    }
+
+    .growth-line div::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--ember);
+    }
+
+    .growth-line strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "Times New Roman", Georgia, serif;
+      color: var(--ember);
+      letter-spacing: .12em;
+    }
+
+    .growth-line span {
+      color: rgba(29,26,21,.62);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .future-letter {
+      width: min(720px, 100%);
+      margin: 50px auto 0;
+      padding: clamp(22px, 4vw, 38px);
+      border-left: 3px solid var(--ember);
+      background: rgba(255,255,255,.3);
     }
 
     .page-grid {
@@ -663,8 +793,29 @@
       .contents-inner,
       .page-grid,
       .moment,
-      .photo-grid {
+      .photo-grid,
+      .chapter-meta,
+      .growth-line {
         grid-template-columns: 1fr;
+      }
+
+      .preface-hero {
+        min-height: 24vh;
+      }
+
+      .growth-line {
+        border-top: 0;
+        border-left: 1px solid rgba(29,26,21,.18);
+        margin-left: 5px;
+      }
+
+      .growth-line div {
+        padding: 0 0 24px 22px;
+      }
+
+      .growth-line div::before {
+        top: 4px;
+        left: -5px;
       }
 
       .chapter-link {
@@ -722,34 +873,34 @@
           </div>
           <div class="recent-card">
             <h3>最近更新</h3>
-            <p>新增《为什么记录》作为第一章。</p>
+            <p>新增《为什么记录》作为序章。</p>
             <p>补充阅读、日志、后记章节。</p>
           </div>
         </div>
 
         <div class="chapter-list" id="chapterList">
           <button class="chapter-link" type="button" data-chapter="why-record">
-            <span class="chapter-number">01</span>
+            <span class="chapter-number">00</span>
             <span class="chapter-title">为什么记录</span>
-            <span class="chapter-desc">这本书为什么存在。</span>
+            <span class="chapter-desc">这本书为什么开始。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="about">
-            <span class="chapter-number">02</span>
+            <span class="chapter-number">01</span>
             <span class="chapter-title">关于我</span>
             <span class="chapter-desc">不是简历，而是一个人的来处。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="timeline">
-            <span class="chapter-number">03</span>
+            <span class="chapter-number">02</span>
             <span class="chapter-title">时间轴</span>
             <span class="chapter-desc">一路走来的故事。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="projects">
-            <span class="chapter-number">04</span>
+            <span class="chapter-number">03</span>
             <span class="chapter-title">创造</span>
             <span class="chapter-desc">创造过什么，也推翻过什么。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="thoughts">
-            <span class="chapter-number">05</span>
+            <span class="chapter-number">04</span>
             <span class="chapter-title">思考</span>
             <span class="chapter-desc">世界观、判断和那些为什么。</span>
           </button>
@@ -764,27 +915,27 @@
             <span class="chapter-desc">生活留下来的光。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="ideas">
-            <span class="chapter-number">08</span>
+            <span class="chapter-number">07</span>
             <span class="chapter-title">想法仓库</span>
             <span class="chapter-desc">还没有成形的灵感。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="failures">
-            <span class="chapter-number">09</span>
+            <span class="chapter-number">08</span>
             <span class="chapter-title">失败记录</span>
             <span class="chapter-desc">真实的尝试和推翻。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="journal">
-            <span class="chapter-number">10</span>
+            <span class="chapter-number">09</span>
             <span class="chapter-title">每日记录</span>
             <span class="chapter-desc">每天一句话也可以。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="future">
-            <span class="chapter-number">11</span>
+            <span class="chapter-number">10</span>
             <span class="chapter-title">给未来的信</span>
             <span class="chapter-desc">写给几年后的自己。</span>
           </button>
           <button class="chapter-link" type="button" data-chapter="contact">
-            <span class="chapter-number">12</span>
+            <span class="chapter-number">11</span>
             <span class="chapter-title">后记</span>
             <span class="chapter-desc">联系与感谢。</span>
           </button>
@@ -801,17 +952,17 @@
         <div class="menu-title">Contents</div>
         <button type="button" data-go="cover">封面<small>Cover</small></button>
         <button type="button" data-go="contents">目录<small>Table of Contents</small></button>
-        <button type="button" data-chapter="why-record">第一章 · 为什么记录<small>序章</small></button>
-        <button type="button" data-chapter="about">第二章 · 关于我<small>人物档案</small></button>
-        <button type="button" data-chapter="timeline">第三章 · 时间轴<small>成长年轮</small></button>
-        <button type="button" data-chapter="projects">第四章 · 创造<small>作品展</small></button>
-        <button type="button" data-chapter="thoughts">第五章 · 思考<small>笔记本</small></button>
-        <button type="button" data-chapter="reading">第六章 · 阅读<small>图书馆</small></button>
-        <button type="button" data-chapter="photos">第七章 · 摄影<small>摄影集</small></button>
-        <button type="button" data-chapter="ideas">第八章 · 想法仓库<small>灵感抽屉</small></button>
-        <button type="button" data-chapter="failures">第九章 · 失败记录<small>真实档案</small></button>
-        <button type="button" data-chapter="journal">第十章 · 每日记录<small>日历</small></button>
-        <button type="button" data-chapter="future">第十一章 · 给未来的信<small>信件</small></button>
+        <button type="button" data-chapter="why-record">序章 · 为什么记录<small>CHAPTER 00</small></button>
+        <button type="button" data-chapter="about">第一章 · 关于我<small>人物档案</small></button>
+        <button type="button" data-chapter="timeline">第二章 · 时间轴<small>成长年轮</small></button>
+        <button type="button" data-chapter="projects">第三章 · 创造<small>作品展</small></button>
+        <button type="button" data-chapter="thoughts">第四章 · 思考<small>笔记本</small></button>
+        <button type="button" data-chapter="reading">第五章 · 阅读<small>图书馆</small></button>
+        <button type="button" data-chapter="photos">第六章 · 摄影<small>摄影集</small></button>
+        <button type="button" data-chapter="ideas">第七章 · 想法仓库<small>灵感抽屉</small></button>
+        <button type="button" data-chapter="failures">第八章 · 失败记录<small>真实档案</small></button>
+        <button type="button" data-chapter="journal">第九章 · 每日记录<small>日历</small></button>
+        <button type="button" data-chapter="future">第十章 · 给未来的信<small>信件</small></button>
         <button type="button" data-chapter="contact">后记 · 联系<small>Afterword</small></button>
       </div>
     </aside>
@@ -844,19 +995,46 @@
   <script>
     const chapters = {
       "why-record": {
-        number: "01",
+        number: "00",
         title: "为什么记录",
-        tone: "letter",
+        tone: "preface",
         html: `
-          <div class="chapter-label">Chapter 01</div>
-          <h2>为什么记录</h2>
-          <p>这不是一个用来炫耀自己的主页，而是一部不断成长的人生记录。</p>
-          <div class="page-quote">如果经历不被记录，它们就会慢慢失去形状。</div>
-          <p>我想把项目、思考、失败、照片、阅读和每天的变化放在同一本书里。别人看到的是我的成长轨迹，而未来的我看到的是：自己为什么开始，又一路走到了哪里。</p>
+          <section class="preface-hero">
+            <div class="chapter-label">CHAPTER 00 / WHY RECORD</div>
+            <h2>为什么记录？</h2>
+            <div class="preface-lede">因为没有记录的经历，最终会消失。</div>
+          </section>
+          <div class="chapter-meta">
+            <div>阅读时间：<span>3 分钟</span></div>
+            <div>创建时间：<span>2026.07.17</span></div>
+            <div>最后修改：<span>2026.07.17</span></div>
+            <div>当前状态：<span>探索 AI / 创造工具 / 寻找方向</span></div>
+          </div>
+          <section class="preface-section">
+            <h3>为什么开始记录</h3>
+            <p>曾经我发现，很多努力确实发生过，但过一段时间以后，它们只剩下一个模糊的印象。那些突然出现的灵感、被推翻的版本、想明白的一瞬间，如果没有被写下来，就像没有真正存在过。</p>
+            <p>所以我想把项目、思考、失败、照片、阅读和每天的变化放在同一本书里。别人看到的是我的成长轨迹，而未来的我看到的是：自己为什么开始，又一路走到了哪里。</p>
+          </section>
+          <section class="preface-section">
+            <h3>记录如何改变自己</h3>
+            <p>记录不是把生活变得漂亮，而是让自己看清楚：什么事情真的重要，什么选择只是当时的冲动，什么失败其实正在训练判断力。</p>
+            <p>当我回看这些页面时，我希望看到的不只是结果，还有成为现在这个自己的过程。这里会继续增加内容，也会允许修改、补充、归档，因为一本真正的人生之书不应该停在某一天。</p>
+          </section>
+          <div class="growth-line">
+            <div><strong>2026</strong><span>开始建立人生档案</span></div>
+            <div><strong>2027</strong><span>新增更多项目、照片与思考</span></div>
+            <div><strong>2030</strong><span>回看曾经的自己</span></div>
+            <div><strong>未来</strong><span>未完待续</span></div>
+          </div>
+          <section class="future-letter">
+            <h3>给未来自己的信</h3>
+            <p>给未来的韩鹏飞：如果你再次翻到这里，希望你还记得为什么开始。不要只保留成功，也不要删掉失败。那些不成熟的想法、反复修改的页面、暂时没有答案的问题，都是你真实走过的路。</p>
+            <p>这本书不会完成。它会随着你继续生活、继续创造、继续思考而慢慢生长。</p>
+          </section>
         `
       },
       about: {
-        number: "02",
+        number: "01",
         title: "关于我",
         tone: "profile",
         html: `
@@ -873,7 +1051,7 @@
         `
       },
       timeline: {
-        number: "03",
+        number: "02",
         title: "时间轴",
         tone: "timeline",
         html: `
@@ -887,11 +1065,11 @@
         `
       },
       projects: {
-        number: "04",
+        number: "03",
         title: "创造",
         tone: "project",
         html: `
-          <div class="chapter-label">Chapter 04</div>
+          <div class="chapter-label">Chapter 03</div>
           <h2>创造</h2>
           <p>项目不只是结果，也是问题、选择、推翻和重新开始的过程。</p>
           <div class="page-grid">
@@ -901,7 +1079,7 @@
         `
       },
       thoughts: {
-        number: "05",
+        number: "04",
         title: "思考",
         tone: "note",
         html: `
@@ -912,22 +1090,22 @@
         `
       },
       ideas: {
-        number: "08",
+        number: "07",
         title: "想法仓库",
         tone: "note",
         html: `
-          <div class="chapter-label">Chapter 08</div>
+          <div class="chapter-label">Chapter 07</div>
           <h2>想法仓库</h2>
           <p>一些突然出现、暂时还没有归宿的想法。它们也许会变成项目，也许只是提醒我曾经这样想过。</p>
           <div class="card"><h3>AI Agent 与个人记录</h3><p>如果 AI 能帮助整理经历、提炼思考、连接项目，个人网站会不会变成一个真正会生长的系统？</p></div>
         `
       },
       failures: {
-        number: "09",
+        number: "08",
         title: "失败记录",
         tone: "archive",
         html: `
-          <div class="chapter-label">Chapter 09</div>
+          <div class="chapter-label">Chapter 08</div>
           <h2>失败记录</h2>
           <p>失败不是污点。它们是判断力变清楚之前，必须留下的痕迹。</p>
           <div class="card"><h3>第一个版本太像展示页</h3><p>我发现自己真正想要的不是炫酷，而是能长期保存经历、思考和心境的空间。</p></div>
@@ -951,11 +1129,11 @@
         `
       },
       reading: {
-        number: "06",
+        number: "05",
         title: "阅读",
         tone: "library",
         html: `
-          <div class="chapter-label">Chapter 06</div>
+          <div class="chapter-label">Chapter 05</div>
           <h2>阅读</h2>
           <p>这里不只放书名，而是记录：这本书改变了我什么。</p>
           <div class="page-grid">
@@ -965,11 +1143,11 @@
         `
       },
       journal: {
-        number: "10",
+        number: "09",
         title: "每日记录",
         tone: "journal",
         html: `
-          <div class="chapter-label">Chapter 10</div>
+          <div class="chapter-label">Chapter 09</div>
           <h2>每日记录</h2>
           <p>每天一句话也可以。完成了什么，失败了什么，想到了什么，读到了什么。</p>
           <div class="timeline">
@@ -979,18 +1157,18 @@
         `
       },
       future: {
-        number: "11",
+        number: "10",
         title: "给未来的信",
         tone: "letter",
         html: `
-          <div class="chapter-label">Chapter 11</div>
+          <div class="chapter-label">Chapter 10</div>
           <h2>给未来的信</h2>
           <p>2026.7</p>
           <p>如果三年后的你看到这里，希望你还没有忘记为什么开始。希望你已经做出一些真正有价值的东西。如果失败了也没关系，但不要停止记录，不要停止思考。</p>
         `
       },
       contact: {
-        number: "12",
+        number: "11",
         title: "后记",
         tone: "letter",
         html: `
@@ -1019,7 +1197,20 @@
     const addPanel = document.getElementById("addPanel");
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
-    const chapterKeys = Object.keys(chapters);
+    const chapterKeys = [
+      "why-record",
+      "about",
+      "timeline",
+      "projects",
+      "thoughts",
+      "reading",
+      "photos",
+      "ideas",
+      "failures",
+      "journal",
+      "future",
+      "contact"
+    ];
     let currentChapterKey = chapterKeys[0];
 
     function showView(id) {

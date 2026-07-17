@@ -154,6 +154,85 @@
       text-align: left;
     }
 
+    .editor-panel {
+      position: fixed;
+      z-index: 46;
+      top: 50%;
+      left: 50%;
+      width: min(560px, calc(100vw - 44px));
+      max-height: calc(100vh - 44px);
+      overflow: auto;
+      display: none;
+      transform: translate(-50%, -50%);
+      padding: 22px;
+      border: 1px solid rgba(244,237,223,.2);
+      background: rgba(5,7,10,.9);
+      color: var(--cream);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 34px 120px rgba(0,0,0,.52);
+    }
+
+    .editor-panel.is-open {
+      display: block;
+    }
+
+    .editor-panel h3 {
+      margin: 0 0 14px;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .editor-panel label {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+      color: rgba(244,237,223,.72);
+      font-size: 13px;
+      letter-spacing: .08em;
+    }
+
+    .editor-panel input,
+    .editor-panel select,
+    .editor-panel textarea {
+      width: 100%;
+      border: 1px solid rgba(244,237,223,.22);
+      background: rgba(244,237,223,.08);
+      color: var(--cream);
+      padding: 11px;
+      outline: none;
+      font: inherit;
+    }
+
+    .editor-panel textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .editor-actions button {
+      border: 1px solid rgba(244,237,223,.22);
+      background: rgba(244,237,223,.08);
+      color: var(--cream);
+      padding: 10px 16px;
+    }
+
+    .editor-feedback {
+      min-height: 22px;
+      margin-top: 10px;
+      color: #ffd0a7;
+      font-size: 13px;
+    }
+
     .menu {
       position: fixed;
       inset: 0;
@@ -708,6 +787,59 @@
       font-weight: 400;
     }
 
+    .user-entries {
+      margin-top: 42px;
+      padding-top: 24px;
+      border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    }
+
+    .user-entries-title {
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 12px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    .user-entry {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+      background: color-mix(in srgb, currentColor 5%, transparent);
+    }
+
+    .user-entry h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .user-entry-meta {
+      margin-top: 8px;
+      color: color-mix(in srgb, currentColor 52%, transparent);
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    .user-entry-body {
+      white-space: pre-wrap;
+    }
+
+    .entry-toolbar {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .entry-toolbar button {
+      border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      background: color-mix(in srgb, currentColor 5%, transparent);
+      color: currentColor;
+      padding: 7px 11px;
+      font-size: 13px;
+    }
+
     .timeline {
       display: grid;
       gap: 22px;
@@ -1068,11 +1200,34 @@
     <section class="popover" id="addPanel" aria-label="添加内容">
       <h3>添加内容</h3>
       <div class="action-list">
-        <button type="button">新增文章</button>
-        <button type="button">新增图片</button>
-        <button type="button">新增项目</button>
-        <button type="button">新增笔记</button>
-        <button type="button">导入 Markdown</button>
+        <button type="button" data-entry-type="article">新增文章</button>
+        <button type="button" data-entry-type="photo">新增图片</button>
+        <button type="button" data-entry-type="project">新增项目</button>
+        <button type="button" data-entry-type="note">新增笔记</button>
+        <button type="button" data-entry-type="markdown">导入 Markdown</button>
+      </div>
+    </section>
+
+    <section class="editor-panel" id="contentEditor" aria-label="内容编辑器">
+      <h3 id="editorTitle">新增内容</h3>
+      <input type="hidden" id="editingEntryId">
+      <input type="hidden" id="entryType" value="article">
+      <label>
+        放到哪一章
+        <select id="entryChapter"></select>
+      </label>
+      <label>
+        标题
+        <input id="entryTitle" placeholder="例如：一次新的思考">
+      </label>
+      <label>
+        内容
+        <textarea id="entryBody" placeholder="写下正文、照片链接、项目说明，或者 Markdown 内容。"></textarea>
+      </label>
+      <div class="editor-feedback" id="entryFeedback"></div>
+      <div class="editor-actions">
+        <button type="button" id="cancelEntryButton">取消</button>
+        <button type="button" id="saveEntryButton">保存到这本书</button>
       </div>
     </section>
 
@@ -1287,8 +1442,31 @@
     const progressPill = document.getElementById("progressPill");
     const searchPanel = document.getElementById("searchPanel");
     const addPanel = document.getElementById("addPanel");
+    const contentEditor = document.getElementById("contentEditor");
+    const editorTitle = document.getElementById("editorTitle");
+    const editingEntryId = document.getElementById("editingEntryId");
+    const entryType = document.getElementById("entryType");
+    const entryChapter = document.getElementById("entryChapter");
+    const entryTitle = document.getElementById("entryTitle");
+    const entryBody = document.getElementById("entryBody");
+    const entryFeedback = document.getElementById("entryFeedback");
     const searchInput = document.getElementById("searchInput");
     const searchResults = document.getElementById("searchResults");
+    const STORAGE_KEY = "hanpengfei.lifeBook.entries";
+    const entryTypeNames = {
+      article: "文章",
+      photo: "图片",
+      project: "项目",
+      note: "笔记",
+      markdown: "Markdown"
+    };
+    const defaultChapterByType = {
+      article: "thoughts",
+      photo: "photos",
+      project: "projects",
+      note: "journal",
+      markdown: "thoughts"
+    };
     const chapterKeys = [
       "why-record",
       "about",
@@ -1305,11 +1483,16 @@
     ];
     let currentChapterKey = chapterKeys[0];
 
+    entryChapter.innerHTML = chapterKeys
+      .map((key) => `<option value="${key}">${chapters[key].number}. ${chapters[key].title}</option>`)
+      .join("");
+
     function showView(id) {
       views.forEach((view) => view.classList.toggle("is-active", view.id === id));
       menu.classList.remove("is-open");
       searchPanel.classList.remove("is-open");
       addPanel.classList.remove("is-open");
+      contentEditor.classList.remove("is-open");
       if (id === "cover") {
         progressPill.textContent = "0%";
         history.replaceState(null, "", "#cover");
@@ -1318,6 +1501,98 @@
         progressPill.textContent = "目录";
         history.replaceState(null, "", "#contents");
       }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function loadEntries() {
+      try {
+        const entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(entries) ? entries : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function persistEntries(entries) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    function renderUserEntries(key) {
+      const entries = loadEntries().filter((entry) => entry.chapter === key);
+      if (entries.length === 0) return "";
+      return `
+        <section class="user-entries">
+          <div class="user-entries-title">Added By You</div>
+          ${entries.map((entry) => `
+            <article class="user-entry">
+              <h3>${escapeHtml(entry.title)}</h3>
+              <div class="user-entry-meta">${escapeHtml(entryTypeNames[entry.type] || "内容")} / ${escapeHtml(entry.createdAt)}</div>
+              <p class="user-entry-body">${escapeHtml(entry.body)}</p>
+              <div class="entry-toolbar">
+                <button type="button" data-edit-entry="${escapeHtml(entry.id)}">编辑</button>
+                <button type="button" data-delete-entry="${escapeHtml(entry.id)}">删除</button>
+              </div>
+            </article>
+          `).join("")}
+        </section>
+      `;
+    }
+
+    function openEditor(type = "article", chapter = currentChapterKey, entry = null) {
+      const resolvedType = entry?.type || type;
+      editorTitle.textContent = entry ? "修改内容" : `新增${entryTypeNames[resolvedType] || "内容"}`;
+      editingEntryId.value = entry?.id || "";
+      entryType.value = resolvedType;
+      entryChapter.value = entry?.chapter || chapter || defaultChapterByType[resolvedType] || "thoughts";
+      entryTitle.value = entry?.title || "";
+      entryBody.value = entry?.body || "";
+      entryFeedback.textContent = "内容会保存在当前浏览器里。";
+      searchPanel.classList.remove("is-open");
+      addPanel.classList.remove("is-open");
+      contentEditor.classList.add("is-open");
+      entryTitle.focus();
+    }
+
+    function saveEntry() {
+      const title = entryTitle.value.trim();
+      const body = entryBody.value.trim();
+      if (!title || !body) {
+        entryFeedback.textContent = "标题和内容都要填写。";
+        return;
+      }
+
+      const entries = loadEntries();
+      const id = editingEntryId.value || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      const existingIndex = entries.findIndex((entry) => entry.id === id);
+      const nextEntry = {
+        id,
+        type: entryType.value,
+        chapter: entryChapter.value,
+        title,
+        body,
+        createdAt: existingIndex >= 0 ? entries[existingIndex].createdAt : new Date().toLocaleDateString("zh-CN")
+      };
+
+      if (existingIndex >= 0) entries[existingIndex] = nextEntry;
+      else entries.unshift(nextEntry);
+      persistEntries(entries);
+      contentEditor.classList.remove("is-open");
+      renderSearch(searchInput.value);
+      openChapter(nextEntry.chapter);
+    }
+
+    function deleteEntry(id) {
+      persistEntries(loadEntries().filter((entry) => entry.id !== id));
+      renderSearch(searchInput.value);
+      openChapter(currentChapterKey);
     }
 
     function openChapter(key) {
@@ -1338,7 +1613,7 @@
       window.setTimeout(() => {
         chapterView.dataset.tone = chapter.tone;
         progressPill.textContent = `${progress}%`;
-        page.innerHTML = chapter.html + `
+        page.innerHTML = chapter.html + renderUserEntries(key) + `
           <div class="chapter-actions">
             <button type="button" data-chapter="${previousKey}">← 上一页：${previousTitle}</button>
             <button type="button" data-go="contents">回到目录</button>
@@ -1364,6 +1639,21 @@
       if (chapter) openChapter(chapter.dataset.chapter);
 
       if (event.target.closest("[data-random]")) randomChapter();
+
+      const entryButton = event.target.closest("[data-entry-type]");
+      if (entryButton) {
+        const type = entryButton.dataset.entryType;
+        openEditor(type, defaultChapterByType[type] || currentChapterKey);
+      }
+
+      const editButton = event.target.closest("[data-edit-entry]");
+      if (editButton) {
+        const entry = loadEntries().find((item) => item.id === editButton.dataset.editEntry);
+        if (entry) openEditor(entry.type, entry.chapter, entry);
+      }
+
+      const deleteButton = event.target.closest("[data-delete-entry]");
+      if (deleteButton) deleteEntry(deleteButton.dataset.deleteEntry);
     });
 
     document.getElementById("menuButton").addEventListener("click", () => {
@@ -1381,7 +1671,13 @@
 
     document.getElementById("addButton").addEventListener("click", () => {
       searchPanel.classList.remove("is-open");
+      contentEditor.classList.remove("is-open");
       addPanel.classList.toggle("is-open");
+    });
+
+    document.getElementById("saveEntryButton").addEventListener("click", saveEntry);
+    document.getElementById("cancelEntryButton").addEventListener("click", () => {
+      contentEditor.classList.remove("is-open");
     });
 
     function renderSearch(query = "") {
@@ -1390,7 +1686,11 @@
       chapterKeys
         .filter((key) => {
           const chapter = chapters[key];
-          return !normalized || `${chapter.title} ${chapter.html}`.toLowerCase().includes(normalized);
+          const entryText = loadEntries()
+            .filter((entry) => entry.chapter === key)
+            .map((entry) => `${entry.title} ${entry.body}`)
+            .join(" ");
+          return !normalized || `${chapter.title} ${chapter.html} ${entryText}`.toLowerCase().includes(normalized);
         })
         .forEach((key) => {
           const button = document.createElement("button");
@@ -1420,7 +1720,10 @@
 
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        if (menu.classList.contains("is-open")) menu.classList.remove("is-open");
+        if (contentEditor.classList.contains("is-open")) contentEditor.classList.remove("is-open");
+        else if (addPanel.classList.contains("is-open")) addPanel.classList.remove("is-open");
+        else if (searchPanel.classList.contains("is-open")) searchPanel.classList.remove("is-open");
+        else if (menu.classList.contains("is-open")) menu.classList.remove("is-open");
         else showView("contents");
       }
       if (!document.getElementById("chapterView").classList.contains("is-active")) return;

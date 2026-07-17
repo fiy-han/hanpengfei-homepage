@@ -20,6 +20,14 @@ expectContains("unfinished ending", "未完待续");
 expectContains("book-like contents marker", "开卷目录");
 expectContains("contents reading prompt", "这不是导航，是一本还在生长的书的索引。");
 expectContains("contents shelf class", "contents-shelf");
+expectContains("content editor panel", "contentEditor");
+expectContains("content editor title input", "entryTitle");
+expectContains("content editor body input", "entryBody");
+expectContains("content editor save button", "saveEntryButton");
+expectContains("local content storage", "hanpengfei.lifeBook.entries");
+expectContains("save entry function", "function saveEntry");
+expectContains("render entries function", "function renderUserEntries");
+expectContains("entry type buttons", "data-entry-type");
 
 if (!/\.cover-panel\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;[\s\S]*?backdrop-filter:\s*none;[\s\S]*?box-shadow:\s*none;/m.test(html)) {
   throw new Error("cover panel still looks like a framed card");

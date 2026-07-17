@@ -840,6 +840,331 @@
       font-size: 13px;
     }
 
+    .profile-dossier {
+      display: grid;
+      grid-template-columns: minmax(220px, .8fr) minmax(320px, 1.2fr);
+      gap: 22px;
+      margin-top: 34px;
+    }
+
+    .profile-id,
+    .mission-board,
+    .growth-route,
+    .lab-file,
+    .mind-card,
+    .library-note {
+      border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+      background: color-mix(in srgb, currentColor 5%, transparent);
+    }
+
+    .profile-id {
+      padding: 24px;
+    }
+
+    .profile-id strong {
+      display: block;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(34px, 5vw, 60px);
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .profile-level {
+      margin-top: 12px;
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .trait-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .trait-tags span {
+      border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+      padding: 7px 10px;
+      font-size: 13px;
+    }
+
+    .mission-board {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .mission-board h3,
+    .growth-route h3,
+    .lab-file h3,
+    .mind-card h3,
+    .library-note h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .growth-route {
+      grid-column: 1 / -1;
+      padding: 22px;
+    }
+
+    .route-line {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .route-line span {
+      border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      padding-top: 12px;
+      color: color-mix(in srgb, currentColor 68%, transparent);
+      font-size: 13px;
+    }
+
+    .lab-board {
+      display: grid;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .lab-status {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: end;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(244,237,223,.16);
+    }
+
+    .lab-status strong {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 400;
+    }
+
+    .lab-code {
+      color: #ffd0a7;
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: .18em;
+    }
+
+    .lab-progress {
+      grid-column: 1 / -1;
+      height: 12px;
+      border: 1px solid rgba(244,237,223,.18);
+      background: rgba(244,237,223,.08);
+    }
+
+    .lab-progress span {
+      display: block;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--ember), #ffd0a7);
+    }
+
+    .lab-files {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .lab-file {
+      padding: 20px;
+    }
+
+    .mind-map {
+      position: relative;
+      min-height: 520px;
+      margin-top: 30px;
+      border: 1px solid rgba(29,26,21,.12);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(162,77,50,.16), transparent 24%),
+        radial-gradient(circle at 24% 28%, rgba(87,124,132,.12), transparent 20%);
+      overflow: hidden;
+    }
+
+    .mind-map::before,
+    .mind-map::after {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border: 1px solid rgba(29,26,21,.1);
+      transform: rotate(28deg);
+      pointer-events: none;
+    }
+
+    .mind-map::after {
+      inset: 28% 12%;
+      transform: rotate(-18deg);
+    }
+
+    .mind-core,
+    .mind-node {
+      position: absolute;
+      z-index: 1;
+    }
+
+    .mind-core {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 150px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(29,26,21,.18);
+      background: rgba(255,255,255,.36);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 28px;
+    }
+
+    .mind-node {
+      width: min(220px, 42%);
+    }
+
+    .mind-node summary {
+      cursor: pointer;
+      list-style: none;
+      border: 1px solid rgba(29,26,21,.18);
+      background: rgba(255,255,255,.42);
+      padding: 12px 14px;
+      color: var(--ember);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 24px;
+    }
+
+    .mind-node summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mind-node p {
+      margin: 8px 0 0;
+      padding: 12px;
+      border-left: 2px solid var(--ember);
+      background: rgba(255,255,255,.48);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .mind-node.ai { left: 8%; top: 16%; }
+    .mind-node.machine { right: 8%; top: 18%; }
+    .mind-node.create { left: 10%; bottom: 18%; }
+    .mind-node.future { right: 12%; bottom: 16%; }
+
+    .bookshelf {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .book-row {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      min-height: 150px;
+      padding: 18px;
+      border-bottom: 8px solid rgba(29,26,21,.22);
+      background: linear-gradient(180deg, transparent, rgba(29,26,21,.06));
+    }
+
+    .book-spine {
+      flex: 1;
+      min-width: 90px;
+      border: 1px solid rgba(29,26,21,.18);
+      background: linear-gradient(135deg, #7f3f2c, #ead8bd);
+      color: #19130e;
+    }
+
+    .book-spine summary {
+      min-height: 150px;
+      cursor: pointer;
+      list-style: none;
+      display: grid;
+      align-content: end;
+      justify-items: start;
+      padding: 14px;
+      writing-mode: horizontal-tb;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 22px;
+      letter-spacing: .12em;
+    }
+
+    .book-spine summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .book-spine p {
+      margin: 0;
+      padding: 14px;
+      background: rgba(247,240,223,.92);
+      writing-mode: horizontal-tb;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .library-note {
+      padding: 20px;
+    }
+
+    .gallery-wall {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      grid-auto-rows: 150px;
+      gap: 12px;
+      margin-top: 34px;
+      perspective: 900px;
+    }
+
+    .memory-frame {
+      position: relative;
+      display: grid;
+      align-content: end;
+      padding: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(244,237,223,.18);
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.72)),
+        url("assets/wenchang-sunset.png") center / cover;
+      color: var(--cream);
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform .25s ease, filter .25s ease;
+    }
+
+    .memory-frame:hover {
+      transform: rotate(0deg) translateY(-4px);
+      filter: brightness(1.08);
+    }
+
+    .memory-frame.large {
+      grid-row: span 2;
+      --tilt: -1.5deg;
+    }
+
+    .memory-frame:nth-child(2) { --tilt: 1.2deg; }
+    .memory-frame:nth-child(3) { --tilt: -1deg; }
+    .memory-frame:nth-child(4) { --tilt: .8deg; }
+    .memory-frame:nth-child(5) { --tilt: -1.2deg; }
+
+    .memory-frame strong {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    .memory-frame span {
+      margin-top: 6px;
+      color: rgba(244,237,223,.72);
+      font-size: 12px;
+    }
+
     .timeline {
       display: grid;
       gap: 22px;
@@ -1009,11 +1334,56 @@
 
       .contents-inner,
       .page-grid,
+      .profile-dossier,
+      .lab-files,
       .moment,
       .photo-grid,
+      .gallery-wall,
       .chapter-meta,
       .growth-line {
         grid-template-columns: 1fr;
+      }
+
+      .growth-route {
+        grid-column: auto;
+      }
+
+      .route-line {
+        grid-template-columns: 1fr;
+      }
+
+      .mind-map {
+        min-height: 720px;
+      }
+
+      .mind-core {
+        top: 45%;
+      }
+
+      .mind-node {
+        width: 74%;
+      }
+
+      .mind-node.ai { left: 4%; top: 6%; }
+      .mind-node.machine { right: 4%; top: 24%; }
+      .mind-node.create { left: 4%; bottom: 24%; }
+      .mind-node.future { right: 4%; bottom: 6%; }
+
+      .book-row {
+        min-height: 180px;
+        overflow-x: auto;
+      }
+
+      .book-spine {
+        min-width: 82px;
+      }
+
+      .gallery-wall {
+        grid-auto-rows: 170px;
+      }
+
+      .memory-frame.large {
+        grid-row: span 1;
       }
 
       .preface-hero {
@@ -1287,13 +1657,28 @@
         html: `
           <div class="chapter-label">Chapter 01</div>
           <h2>关于我</h2>
-          <p>我是韩鹏飞，一个来自海南文昌的大学生。乐于接触新鲜事物，乐观开朗，积极向上，热爱篮球，也喜欢看着好看的风景发呆。</p>
-          <div class="page-quote">不是简历，而是一个人的来处。</div>
-          <div class="page-grid">
-            <div class="card"><h3>来处</h3><p>文昌的海风、晚霞和椰影，是这本书的第一层底色。</p></div>
-            <div class="card"><h3>性格</h3><p>我喜欢把复杂的问题拆开，保持好奇，然后一点点做出能被看见的东西。</p></div>
-            <div class="card"><h3>生活</h3><p>篮球让我保持热烈，风景让我保持松弛。</p></div>
-            <div class="card"><h3>方向</h3><p>我希望留下真正有价值的软件、记录和思考。</p></div>
+          <p>这一章不做简历，而像一张人物档案：记录我的来处、状态、兴趣和正在推进的任务。</p>
+          <div class="profile-dossier">
+            <section class="profile-id">
+              <strong>韩鹏飞</strong>
+              <div class="profile-level">探索者 Lv.?</div>
+              <p>来自海南文昌的大学生。乐观开朗，积极向上，喜欢篮球，也喜欢看着好看的风景发呆。</p>
+              <div class="trait-tags">
+                <span>AI</span><span>机械</span><span>创造</span><span>篮球</span><span>风景</span>
+              </div>
+            </section>
+            <section class="mission-board">
+              <h3>当前任务</h3>
+              <p>建立一本会持续生长的人生之书，把项目、思考、记忆和失败都放进同一个可回看的系统。</p>
+              <h3>人物特质</h3>
+              <p>愿意接触新鲜事物，喜欢把复杂问题拆开，也愿意慢慢做出能被看见的东西。</p>
+            </section>
+            <section class="growth-route">
+              <h3>成长路线</h3>
+              <div class="route-line">
+                <span>文昌</span><span>机械基础</span><span>编程学习</span><span>AI 工具</span><span>长期记录</span>
+              </div>
+            </section>
           </div>
         `
       },
@@ -1318,10 +1703,22 @@
         html: `
           <div class="chapter-label">Chapter 03</div>
           <h2>创造</h2>
-          <p>项目不只是结果，也是问题、选择、推翻和重新开始的过程。</p>
-          <div class="page-grid">
-            <div class="card"><h3>个人博物馆网站</h3><p><strong>为什么做：</strong>我不想只拥有一张主页，而想拥有一本能长期翻阅的书。</p><p><strong>学到什么：</strong>体验比炫技重要，记录比展示更持久。</p></div>
-            <div class="card"><h3>未来项目</h3><p>这里会继续记录课程作品、AI 实验、工具开发、截图、GitHub 链接和更新记录。</p></div>
+          <p>这一章像实验室。每个项目不是成品展示，而是一份仍在变化的实验档案。</p>
+          <div class="lab-board">
+            <section class="lab-status">
+              <div>
+                <div class="lab-code">PROJECT / P-001</div>
+                <strong>个人博物馆网站</strong>
+              </div>
+              <div>70%</div>
+              <div class="lab-progress" aria-label="项目进度"><span></span></div>
+            </section>
+            <div class="lab-files">
+              <article class="lab-file"><h3>目标</h3><p>把个人主页升级成一本能长期翻阅、持续添加内容的人生之书。</p></article>
+              <article class="lab-file"><h3>过程</h3><p>从电影感封面开始，逐步加入目录、章节、编辑器、搜索和本地内容保存。</p></article>
+              <article class="lab-file"><h3>失败</h3><p>早期版本太像 PPT，也太依赖统一模板，导致每一章缺少自己的世界规则。</p></article>
+              <article class="lab-file"><h3>下一步</h3><p>让每个模块拥有独立 UI 隐喻，并逐渐把本地内容升级为可公开发布的内容系统。</p></article>
+            </div>
           </div>
         `
       },
@@ -1343,8 +1740,26 @@
         html: `
           <div class="chapter-label">Chapter 07</div>
           <h2>想法仓库</h2>
-          <p>一些突然出现、暂时还没有归宿的想法。它们也许会变成项目，也许只是提醒我曾经这样想过。</p>
-          <div class="card"><h3>AI Agent 与个人记录</h3><p>如果 AI 能帮助整理经历、提炼思考、连接项目，个人网站会不会变成一个真正会生长的系统？</p></div>
+          <p>这里不是列表，而是一片思维空间。点击节点，像进入一小段正在成形的想法。</p>
+          <div class="mind-map">
+            <div class="mind-core">我的大脑</div>
+            <details class="mind-node ai" open>
+              <summary>AI</summary>
+              <p>如果 AI 能帮助整理经历、提炼思考、连接项目，个人网站会不会变成真正会生长的系统？</p>
+            </details>
+            <details class="mind-node machine">
+              <summary>机械</summary>
+              <p>机械不只是结构和零件，也是一种理解世界如何运转的方式。</p>
+            </details>
+            <details class="mind-node create">
+              <summary>创造</summary>
+              <p>我想做的不只是展示结果，而是留下从问题到答案的完整过程。</p>
+            </details>
+            <details class="mind-node future">
+              <summary>未来</summary>
+              <p>也许几年后，这里会成为我回看选择、判断和成长轨迹的坐标。</p>
+            </details>
+          </div>
         `
       },
       failures: {
@@ -1365,13 +1780,13 @@
         html: `
           <div class="chapter-label">Chapter 06</div>
           <h2>摄影</h2>
-          <p>每张照片都应该有故事：当时发生了什么，为什么拍它，它保留了哪一束光。</p>
-          <div class="photo-grid">
-            <div class="photo">文昌晚霞</div>
-            <div class="photo">椰影</div>
-            <div class="photo">篮球</div>
-            <div class="photo">风景</div>
-            <div class="photo">日常</div>
+          <p>这一章像一间时间摄影展。每一格不是图片占位，而是一段可以继续补照片和故事的记忆。</p>
+          <div class="gallery-wall">
+            <article class="memory-frame large"><strong>文昌晚霞</strong><span>风从海边吹来，天空慢慢暗下去。</span></article>
+            <article class="memory-frame"><strong>椰影</strong><span>家乡的轮廓。</span></article>
+            <article class="memory-frame"><strong>篮球</strong><span>热烈、速度和伙伴。</span></article>
+            <article class="memory-frame"><strong>风景</strong><span>适合发呆的片刻。</span></article>
+            <article class="memory-frame"><strong>日常</strong><span>生活留下来的光。</span></article>
           </div>
         `
       },
@@ -1382,10 +1797,26 @@
         html: `
           <div class="chapter-label">Chapter 05</div>
           <h2>阅读</h2>
-          <p>这里不只放书名，而是记录：这本书改变了我什么。</p>
-          <div class="page-grid">
-            <div class="card"><h3>待读的一本书</h3><p>★★★★★</p><p>一句摘录、我的思考、推荐指数和相关笔记，未来都会放在这里。</p></div>
-            <div class="card"><h3>阅读不是装饰</h3><p>它应该成为项目、思考和人生选择的底层来源。</p></div>
+          <p>这里像私人图书馆。点击一本书脊，打开它对我的影响，而不是只看书名。</p>
+          <div class="bookshelf">
+            <div class="book-row">
+              <details class="book-spine">
+                <summary>待读的一本书</summary>
+                <p>这里会记录为什么读、摘录、我的理解、推荐指数，以及它和哪些想法相连。</p>
+              </details>
+              <details class="book-spine">
+                <summary>阅读不是装饰</summary>
+                <p>它应该成为项目、思考和人生选择的底层来源，而不是摆在页面上的标签。</p>
+              </details>
+              <details class="book-spine">
+                <summary>影响我的书</summary>
+                <p>未来可以把真正改变过我的书放在这里，像一排会被翻开的书脊。</p>
+              </details>
+            </div>
+            <section class="library-note">
+              <h3>图书馆规则</h3>
+              <p>每本书都要留下一个问题：它让我重新理解了什么？如果没有这个问题，书名就只是装饰。</p>
+            </section>
           </div>
         `
       },

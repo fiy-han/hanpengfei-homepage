@@ -28,6 +28,16 @@ expectContains("local content storage", "hanpengfei.lifeBook.entries");
 expectContains("save entry function", "function saveEntry");
 expectContains("render entries function", "function renderUserEntries");
 expectContains("entry type buttons", "data-entry-type");
+expectContains("profile dossier module", "profile-dossier");
+expectContains("profile explorer level", "探索者 Lv.?");
+expectContains("project lab module", "lab-board");
+expectContains("project progress module", "lab-progress");
+expectContains("mind map module", "mind-map");
+expectContains("mind map node", "mind-node");
+expectContains("private library module", "bookshelf");
+expectContains("book spine module", "book-spine");
+expectContains("gallery wall module", "gallery-wall");
+expectContains("gallery memory frame", "memory-frame");
 
 if (!/\.cover-panel\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;[\s\S]*?backdrop-filter:\s*none;[\s\S]*?box-shadow:\s*none;/m.test(html)) {
   throw new Error("cover panel still looks like a framed card");

@@ -95,8 +95,18 @@
     .menu-grid {
       width: min(760px, 100%);
       display: grid;
-      gap: 12px;
+      gap: 8px;
       margin: 0 auto;
+    }
+
+    .menu-title {
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(244,237,223,.2);
+      color: rgba(244,237,223,.58);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 12px;
+      letter-spacing: .36em;
+      text-transform: uppercase;
     }
 
     .menu-grid button {
@@ -107,8 +117,17 @@
       text-align: left;
       color: var(--cream);
       font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(26px, 4vw, 46px);
+      font-size: clamp(22px, 3vw, 36px);
       letter-spacing: .08em;
+    }
+
+    .menu-grid small {
+      display: block;
+      margin-top: 6px;
+      color: rgba(244,237,223,.42);
+      font-family: "Microsoft YaHei UI", sans-serif;
+      font-size: 12px;
+      letter-spacing: .12em;
     }
 
     .menu-grid button:hover {
@@ -148,6 +167,18 @@
       box-shadow: 0 40px 140px rgba(0,0,0,.38);
     }
 
+    .roman-name {
+      display: grid;
+      gap: 2px;
+      margin-top: 26px;
+      color: rgba(244,237,223,.82);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: clamp(36px, 7vw, 92px);
+      line-height: .88;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
     .kicker {
       font-family: "Times New Roman", Georgia, serif;
       font-size: 12px;
@@ -157,9 +188,9 @@
     }
 
     h1 {
-      margin: 24px 0 0;
+      margin: 28px 0 0;
       font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(68px, 13vw, 168px);
+      font-size: clamp(42px, 7vw, 92px);
       line-height: .92;
       font-weight: 400;
       letter-spacing: .1em;
@@ -172,6 +203,13 @@
       font-size: clamp(18px, 2vw, 28px);
       letter-spacing: .16em;
       color: rgba(244,237,223,.86);
+    }
+
+    .cover-line {
+      width: min(360px, 70%);
+      height: 1px;
+      margin: 30px auto 0;
+      background: linear-gradient(90deg, transparent, rgba(244,237,223,.58), transparent);
     }
 
     .cover-actions,
@@ -233,6 +271,27 @@
       border: 1px solid rgba(244,237,223,.18);
       background: rgba(5,7,10,.34);
       backdrop-filter: blur(12px);
+    }
+
+    .recent-card {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(244,237,223,.14);
+      background: rgba(244,237,223,.055);
+    }
+
+    .recent-card h3 {
+      margin: 0 0 12px;
+      color: rgba(244,237,223,.82);
+      font-size: 16px;
+      letter-spacing: .12em;
+    }
+
+    .recent-card p {
+      margin: 6px 0;
+      color: rgba(244,237,223,.58);
+      line-height: 1.75;
+      font-size: 13px;
     }
 
     .today-card h3 {
@@ -326,6 +385,21 @@
       --page-bg: #eee5d4;
     }
 
+    .chapter[data-tone="profile"] .page {
+      --page-bg: linear-gradient(135deg, #efe2ce, #f8f1e4);
+    }
+
+    .chapter[data-tone="project"] .page {
+      --page-bg: #101820;
+      --page-text: var(--cream);
+      border-color: rgba(244,237,223,.16);
+    }
+
+    .chapter[data-tone="timeline"] .page {
+      --page-bg: #e8dfcf;
+      background-image: radial-gradient(circle at 20% 20%, rgba(162,77,50,.1), transparent 28%);
+    }
+
     .chapter-label {
       color: var(--ember);
       font-family: "Times New Roman", Georgia, serif;
@@ -395,6 +469,57 @@
       grid-auto-rows: 160px;
       gap: 12px;
       margin-top: 34px;
+    }
+
+    .page-quote {
+      margin-top: 34px;
+      padding-left: 22px;
+      border-left: 2px solid var(--ember);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(24px, 3vw, 40px);
+      line-height: 1.6;
+    }
+
+    .transition {
+      position: fixed;
+      inset: 0;
+      z-index: 35;
+      display: none;
+      place-items: center;
+      background: rgba(5,7,10,.88);
+      color: var(--cream);
+      backdrop-filter: blur(18px);
+    }
+
+    .transition.is-active {
+      display: grid;
+      animation: fadeChapter 1s ease both;
+    }
+
+    .transition-card {
+      text-align: center;
+    }
+
+    .transition-card small {
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+    }
+
+    .transition-card strong {
+      display: block;
+      margin-top: 14px;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(40px, 7vw, 96px);
+      font-weight: 400;
+      letter-spacing: .1em;
+    }
+
+    @keyframes fadeChapter {
+      0% { opacity: 0; }
+      18%, 72% { opacity: 1; }
+      100% { opacity: 0; }
     }
 
     .photo {
@@ -470,8 +595,10 @@
     <section class="view cover is-active" id="cover">
       <div class="cover-panel">
         <div class="kicker">A book still being written</div>
+        <div class="roman-name"><span>Han</span><span>Pengfei</span></div>
+        <div class="cover-line"></div>
         <h1>《韩鹏飞》</h1>
-        <div class="cover-subtitle">一本仍在书写中的书。</div>
+        <div class="cover-subtitle">一本仍在书写中的人生。</div>
         <div class="cover-actions">
           <button type="button" data-go="contents">翻开第一页</button>
           <button type="button" id="randomFromCover">随机读一页</button>
@@ -490,6 +617,11 @@
             <p>最近在做：把个人主页改成一本能翻阅的书。</p>
             <p>最近在想：留下经历，比展示能力更重要。</p>
             <button type="button" id="randomFromContents">今天，随机读一页</button>
+          </div>
+          <div class="recent-card">
+            <h3>最近更新</h3>
+            <p>重构为 Digital Life Book。</p>
+            <p>加入章节翻页、目录、随机阅读与隐藏菜单。</p>
           </div>
         </div>
 
@@ -544,15 +676,23 @@
 
     <aside class="menu" id="menu">
       <div class="menu-grid">
-        <button type="button" data-go="cover">封面</button>
-        <button type="button" data-go="contents">目录</button>
-        <button type="button" data-chapter="about">关于我</button>
-        <button type="button" data-chapter="timeline">时间轴</button>
-        <button type="button" data-chapter="projects">项目</button>
-        <button type="button" data-chapter="thoughts">思考</button>
-        <button type="button" data-chapter="photos">照片</button>
+        <div class="menu-title">Contents</div>
+        <button type="button" data-go="cover">封面<small>Cover</small></button>
+        <button type="button" data-go="contents">目录<small>Table of Contents</small></button>
+        <button type="button" data-chapter="about">第一页 · 关于我<small>人物档案</small></button>
+        <button type="button" data-chapter="timeline">第二章 · 时间轴<small>成长年轮</small></button>
+        <button type="button" data-chapter="projects">第三章 · 项目<small>作品展</small></button>
+        <button type="button" data-chapter="thoughts">第四章 · 思考<small>笔记本</small></button>
+        <button type="button" data-chapter="photos">第七章 · 照片<small>摄影集</small></button>
       </div>
     </aside>
+
+    <div class="transition" id="transition">
+      <div class="transition-card">
+        <small id="transitionNumber"></small>
+        <strong id="transitionTitle"></strong>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -560,11 +700,12 @@
       about: {
         number: "01",
         title: "关于我",
-        tone: "archive",
+        tone: "profile",
         html: `
           <div class="chapter-label">Chapter 01</div>
           <h2>关于我</h2>
           <p>我是韩鹏飞，一个来自海南文昌的大学生。乐于接触新鲜事物，乐观开朗，积极向上，热爱篮球，也喜欢看着好看的风景发呆。</p>
+          <div class="page-quote">不是简历，而是一个人的来处。</div>
           <div class="page-grid">
             <div class="card"><h3>来处</h3><p>文昌的海风、晚霞和椰影，是这本书的第一层底色。</p></div>
             <div class="card"><h3>性格</h3><p>我喜欢把复杂的问题拆开，保持好奇，然后一点点做出能被看见的东西。</p></div>
@@ -576,7 +717,7 @@
       timeline: {
         number: "02",
         title: "时间轴",
-        tone: "archive",
+        tone: "timeline",
         html: `
           <div class="chapter-label">Chapter 02</div>
           <h2>时间轴</h2>
@@ -590,7 +731,7 @@
       projects: {
         number: "03",
         title: "项目",
-        tone: "archive",
+        tone: "project",
         html: `
           <div class="chapter-label">Chapter 03</div>
           <h2>项目</h2>
@@ -668,6 +809,9 @@
     const page = document.getElementById("page");
     const chapterView = document.getElementById("chapterView");
     const menu = document.getElementById("menu");
+    const transition = document.getElementById("transition");
+    const transitionNumber = document.getElementById("transitionNumber");
+    const transitionTitle = document.getElementById("transitionTitle");
     const chapterKeys = Object.keys(chapters);
     let currentChapterKey = chapterKeys[0];
 
@@ -685,15 +829,23 @@
       const nextKey = chapterKeys[(index + 1) % chapterKeys.length];
       const previousTitle = chapters[previousKey].title;
       const nextTitle = chapters[nextKey].title;
-      chapterView.dataset.tone = chapter.tone;
-      page.innerHTML = chapter.html + `
-        <div class="chapter-actions">
-          <button type="button" data-chapter="${previousKey}">← 上一页：${previousTitle}</button>
-          <button type="button" data-go="contents">回到目录</button>
-          <button type="button" data-chapter="${nextKey}">下一页：${nextTitle} →</button>
-        </div>
-      `;
-      showView("chapterView");
+      transitionNumber.textContent = `Chapter ${chapter.number}`;
+      transitionTitle.textContent = chapter.title;
+      transition.classList.remove("is-active");
+      void transition.offsetWidth;
+      transition.classList.add("is-active");
+      window.setTimeout(() => {
+        chapterView.dataset.tone = chapter.tone;
+        page.innerHTML = chapter.html + `
+          <div class="chapter-actions">
+            <button type="button" data-chapter="${previousKey}">← 上一页：${previousTitle}</button>
+            <button type="button" data-go="contents">回到目录</button>
+            <button type="button" data-chapter="${nextKey}">下一页：${nextTitle} →</button>
+          </div>
+        `;
+        showView("chapterView");
+      }, 360);
+      window.setTimeout(() => transition.classList.remove("is-active"), 980);
     }
 
     function randomChapter() {

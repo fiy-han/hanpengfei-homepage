@@ -3,473 +3,458 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>韩鹏飞的个人博物馆</title>
+  <title>《韩鹏飞》一本仍在书写中的书</title>
   <style>
     :root {
-      color-scheme: dark;
-      --ink: #05070a;
-      --deep: #0a1016;
-      --paper: #fff7df;
-      --soft: rgba(255, 247, 223, .72);
-      --faint: rgba(255, 247, 223, .42);
-      --line: rgba(255, 247, 223, .14);
-      --ember: #ff8b5f;
-      --cyan: #9ac3d0;
+      color-scheme: light dark;
+      --ink: #12100d;
+      --paper: #f4eddf;
+      --paper-2: #ebe0ce;
+      --text: #1d1a15;
+      --muted: rgba(29, 26, 21, .64);
+      --line: rgba(29, 26, 21, .16);
+      --ember: #a24d32;
+      --sea: #577c84;
+      --night: #05070a;
+      --cream: rgba(244, 237, 223, .94);
     }
 
     * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-      background: var(--ink);
+    html, body {
+      min-height: 100%;
     }
 
     body {
       margin: 0;
-      background:
-        linear-gradient(180deg, rgba(5,7,10,.34), var(--ink) 720px),
-        url("assets/wenchang-sunset.png") center top / 100% auto no-repeat,
-        var(--ink);
-      color: var(--paper);
+      background: var(--night);
+      color: var(--text);
       font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    body::before {
+    button {
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .book {
+      min-height: 100vh;
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(90deg, rgba(5,7,10,.72), rgba(5,7,10,.1) 46%, rgba(5,7,10,.7)),
+        linear-gradient(180deg, rgba(5,7,10,.12), rgba(5,7,10,.76)),
+        url("assets/wenchang-sunset.png") center / cover;
+    }
+
+    .book::after {
       content: "";
-      position: fixed;
+      position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 20;
+      z-index: 10;
       background:
-        repeating-linear-gradient(0deg, rgba(255,255,255,.014) 0 1px, transparent 1px 4px),
-        radial-gradient(circle at 50% 30%, transparent 0 46%, rgba(0,0,0,.42) 100%);
+        repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 50% 52%, transparent 0 48%, rgba(0,0,0,.38) 100%);
       opacity: .58;
     }
 
-    button, input, textarea {
-      color: inherit;
-      font: inherit;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .shell {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-    }
-
-    .nav {
+    .menu-button {
       position: fixed;
-      z-index: 15;
-      top: 0;
-      left: 0;
-      width: 260px;
-      height: 100vh;
-      padding: 34px 24px;
-      border-right: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(3,5,8,.72), rgba(3,5,8,.92));
+      z-index: 30;
+      top: 28px;
+      left: 28px;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(244,237,223,.28);
+      background: rgba(5,7,10,.28);
+      color: var(--cream);
+      backdrop-filter: blur(14px);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .menu {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+      background: rgba(5,7,10,.72);
       backdrop-filter: blur(18px);
+      color: var(--cream);
+      padding: clamp(38px, 7vw, 90px);
     }
 
-    .brand {
-      font-family: "Times New Roman", Georgia, serif;
-      font-size: 12px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--soft);
+    .menu.is-open {
+      display: grid;
+      align-content: center;
     }
 
-    .brand strong {
-      display: block;
-      margin-top: 10px;
-      color: var(--paper);
+    .menu-grid {
+      width: min(760px, 100%);
+      display: grid;
+      gap: 12px;
+      margin: 0 auto;
+    }
+
+    .menu-grid button {
+      border: 0;
+      border-bottom: 1px solid rgba(244,237,223,.16);
+      background: transparent;
+      padding: 16px 0;
+      text-align: left;
+      color: var(--cream);
       font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: 28px;
-      font-weight: 400;
-      letter-spacing: .12em;
+      font-size: clamp(26px, 4vw, 46px);
+      letter-spacing: .08em;
     }
 
-    .nav-links {
-      display: grid;
-      gap: 4px;
-      margin-top: 42px;
+    .menu-grid button:hover {
+      color: #ffd0a7;
     }
 
-    .nav-links a {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,247,223,.08);
-      color: var(--soft);
-      font-size: 14px;
-      letter-spacing: .12em;
-      transition: color .2s ease, padding-left .2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--paper);
-      padding-left: 8px;
-    }
-
-    .nav-note {
+    .view {
       position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 28px;
-      color: var(--faint);
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .main {
-      margin-left: 260px;
-    }
-
-    .hero {
-      min-height: 100vh;
+      inset: 0;
+      z-index: 1;
       display: grid;
-      align-items: center;
-      padding: 90px clamp(28px, 7vw, 110px);
-      background:
-        linear-gradient(90deg, rgba(3,5,8,.84), rgba(3,5,8,.18) 56%, rgba(3,5,8,.64)),
-        linear-gradient(180deg, rgba(3,5,8,.16), rgba(3,5,8,.88));
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease, visibility .5s;
     }
 
-    .hero-inner {
-      max-width: 920px;
-      position: relative;
+    .view.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .cover {
+      place-items: center;
+      padding: 28px;
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .cover-panel {
+      width: min(980px, 100%);
+      padding: clamp(38px, 8vw, 96px);
+      border: 1px solid rgba(244,237,223,.18);
+      background: linear-gradient(180deg, rgba(5,7,10,.26), rgba(5,7,10,.52));
+      backdrop-filter: blur(8px);
+      box-shadow: 0 40px 140px rgba(0,0,0,.38);
     }
 
     .kicker {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: rgba(255, 247, 223, .78);
       font-family: "Times New Roman", Georgia, serif;
       font-size: 12px;
-      letter-spacing: .38em;
+      letter-spacing: .34em;
       text-transform: uppercase;
-    }
-
-    .kicker::before {
-      content: "";
-      width: 42px;
-      height: 1px;
-      background: linear-gradient(90deg, var(--ember), transparent);
-      box-shadow: 0 0 18px rgba(255,139,95,.72);
+      color: rgba(244,237,223,.74);
     }
 
     h1 {
       margin: 24px 0 0;
       font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(58px, 9vw, 132px);
+      font-size: clamp(68px, 13vw, 168px);
       line-height: .92;
       font-weight: 400;
-      letter-spacing: .08em;
-      color: #fff4d5;
-      text-shadow: 0 14px 42px rgba(0,0,0,.72);
+      letter-spacing: .1em;
+      text-shadow: 0 18px 46px rgba(0,0,0,.55);
     }
 
-    .subtitle {
-      margin-top: 20px;
-      color: rgba(255,247,223,.86);
+    .cover-subtitle {
+      margin-top: 24px;
       font-family: "STSong", "SimSun", "Songti SC", serif;
       font-size: clamp(18px, 2vw, 28px);
-      letter-spacing: .18em;
+      letter-spacing: .16em;
+      color: rgba(244,237,223,.86);
     }
 
-    .hero-copy {
-      max-width: 720px;
-      margin-top: 36px;
-      color: var(--soft);
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(18px, 1.6vw, 23px);
-      line-height: 2.05;
-      letter-spacing: .05em;
-    }
-
-    .hero-actions {
+    .cover-actions,
+    .chapter-actions {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 14px;
       margin-top: 42px;
     }
 
-    .hero-actions a,
-    .add-entry,
-    .save-entry,
-    .close-editor {
-      border: 1px solid rgba(255,247,223,.22);
-      background: rgba(255,247,223,.06);
-      padding: 11px 18px;
-      color: rgba(255,247,223,.86);
+    .cover-actions button,
+    .chapter-actions button,
+    .today-card button {
+      border: 1px solid rgba(244,237,223,.28);
+      background: rgba(244,237,223,.08);
+      color: var(--cream);
+      padding: 12px 20px;
       letter-spacing: .12em;
-      cursor: pointer;
-      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
     }
 
-    .hero-actions a:hover,
-    .add-entry:hover,
-    .save-entry:hover,
-    .close-editor:hover {
-      border-color: rgba(255,139,95,.66);
-      background: rgba(255,139,95,.12);
+    .cover-actions button:hover,
+    .chapter-actions button:hover,
+    .today-card button:hover {
       transform: translateY(-2px);
+      border-color: rgba(255,170,120,.7);
+      background: rgba(255,139,95,.14);
     }
 
-    .section {
-      padding: clamp(70px, 10vw, 132px) clamp(28px, 7vw, 110px);
-      background: linear-gradient(180deg, rgba(5,7,10,.94), rgba(9,16,22,.98));
-      border-top: 1px solid var(--line);
+    .contents {
+      align-content: center;
+      padding: clamp(28px, 6vw, 80px);
+      background: rgba(5,7,10,.46);
+      color: var(--cream);
     }
 
-    .section:nth-child(odd) {
-      background: linear-gradient(180deg, rgba(8,13,18,.98), rgba(5,7,10,.98));
-    }
-
-    .section-head {
+    .contents-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 24px;
-      align-items: end;
-      margin-bottom: 38px;
+      grid-template-columns: minmax(280px, .78fr) minmax(420px, 1.22fr);
+      gap: clamp(34px, 6vw, 82px);
+      align-items: center;
     }
 
-    .label {
-      color: var(--ember);
-      font-family: "Times New Roman", Georgia, serif;
-      font-size: 12px;
-      letter-spacing: .34em;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      margin: 14px 0 0;
+    .contents h2 {
+      margin: 16px 0 0;
       font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(38px, 6vw, 82px);
+      font-size: clamp(48px, 8vw, 108px);
       line-height: 1;
       font-weight: 400;
       letter-spacing: .08em;
     }
 
-    .section-intro {
-      max-width: 760px;
-      margin: 22px 0 0;
-      color: var(--soft);
-      font-size: 16px;
-      line-height: 2;
-    }
-
-    .museum-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .exhibit {
-      min-height: 210px;
+    .today-card {
+      margin-top: 34px;
       padding: 22px;
-      border: 1px solid rgba(255,247,223,.13);
-      background: linear-gradient(180deg, rgba(255,247,223,.055), rgba(255,247,223,.02));
-      transition: transform .24s ease, border-color .24s ease, background .24s ease;
+      border: 1px solid rgba(244,237,223,.18);
+      background: rgba(5,7,10,.34);
+      backdrop-filter: blur(12px);
     }
 
-    .exhibit:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255,139,95,.48);
-      background: linear-gradient(180deg, rgba(255,139,95,.09), rgba(255,247,223,.025));
-    }
-
-    .exhibit h3,
-    .entry h3 {
-      margin: 0;
+    .today-card h3 {
+      margin: 0 0 14px;
       font-family: "STSong", "SimSun", "Songti SC", serif;
       font-size: 26px;
       font-weight: 400;
       letter-spacing: .08em;
     }
 
-    .exhibit p,
-    .entry p {
+    .today-card p {
+      margin: 8px 0;
+      color: rgba(244,237,223,.72);
+      line-height: 1.75;
+    }
+
+    .chapter-list {
+      display: grid;
+      gap: 10px;
+      max-height: 76vh;
+      overflow: auto;
+      padding-right: 8px;
+    }
+
+    .chapter-link {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      border: 0;
+      border-bottom: 1px solid rgba(244,237,223,.16);
+      background: transparent;
+      padding: 18px 0;
+      color: var(--cream);
+      text-align: left;
+    }
+
+    .chapter-link:hover .chapter-title {
+      color: #ffd0a7;
+    }
+
+    .chapter-number {
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: .22em;
+    }
+
+    .chapter-title {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(24px, 3vw, 42px);
+      letter-spacing: .08em;
+      transition: color .2s ease;
+    }
+
+    .chapter-desc {
+      color: rgba(244,237,223,.55);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .chapter {
+      place-items: center;
+      padding: clamp(22px, 5vw, 70px);
+      background:
+        linear-gradient(90deg, rgba(5,7,10,.2), rgba(5,7,10,.74)),
+        var(--chapter-bg, var(--paper));
+    }
+
+    .page {
+      width: min(980px, 100%);
+      max-height: min(760px, calc(100vh - 44px));
+      overflow: auto;
+      padding: clamp(34px, 6vw, 76px);
+      background: var(--page-bg, rgba(244,237,223,.96));
+      color: var(--page-text, var(--text));
+      box-shadow: 0 38px 130px rgba(0,0,0,.42);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    .chapter[data-tone="note"] .page {
+      --page-bg: #f7f0df;
+    }
+
+    .chapter[data-tone="photo"] .page {
+      --page-bg: rgba(5,7,10,.82);
+      --page-text: var(--cream);
+      border-color: rgba(244,237,223,.16);
+    }
+
+    .chapter[data-tone="archive"] .page {
+      --page-bg: #eee5d4;
+    }
+
+    .chapter-label {
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 12px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+    }
+
+    .page h2 {
       margin: 16px 0 0;
-      color: var(--soft);
-      font-size: 14px;
-      line-height: 1.95;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(42px, 7vw, 92px);
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .page p {
+      color: color-mix(in srgb, currentColor 72%, transparent);
+      font-size: 16px;
+      line-height: 2;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 34px;
+    }
+
+    .card {
+      padding: 20px;
+      border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+      background: color-mix(in srgb, currentColor 5%, transparent);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 26px;
+      font-weight: 400;
     }
 
     .timeline {
-      position: relative;
       display: grid;
-      gap: 28px;
-      max-width: 920px;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      bottom: 10px;
-      left: 96px;
-      width: 1px;
-      background: linear-gradient(180deg, var(--ember), rgba(255,247,223,.12));
+      gap: 22px;
+      margin-top: 34px;
     }
 
     .moment {
       display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 30px;
-      align-items: start;
+      grid-template-columns: 90px 1fr;
+      gap: 22px;
+      border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+      padding-top: 18px;
     }
 
     .year {
       color: var(--ember);
       font-family: "Times New Roman", Georgia, serif;
-      font-size: 26px;
-      letter-spacing: .08em;
+      font-size: 24px;
     }
 
-    .moment-card {
-      padding: 20px;
-      border: 1px solid rgba(255,247,223,.13);
-      background: rgba(255,247,223,.045);
-    }
-
-    .quote {
-      max-width: 860px;
-      margin: 0;
-      color: #fff3d2;
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(26px, 4vw, 52px);
-      line-height: 1.5;
-      letter-spacing: .06em;
-    }
-
-    .stack {
-      display: grid;
-      gap: 14px;
-      max-width: 900px;
-    }
-
-    .entry {
-      padding: 20px;
-      border: 1px solid rgba(255,247,223,.13);
-      background: rgba(255,247,223,.045);
-    }
-
-    .photo-wall {
+    .photo-grid {
       display: grid;
       grid-template-columns: 1.4fr 1fr 1fr;
-      grid-auto-rows: 180px;
+      grid-auto-rows: 160px;
       gap: 12px;
+      margin-top: 34px;
     }
 
     .photo {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,247,223,.12);
-      background:
-        linear-gradient(180deg, transparent, rgba(0,0,0,.62)),
-        url("assets/wenchang-sunset.png") center / cover;
       display: grid;
       align-content: end;
       padding: 18px;
-      color: var(--paper);
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.68)),
+        url("assets/wenchang-sunset.png") center / cover;
+      color: var(--cream);
       font-family: "STSong", "SimSun", "Songti SC", serif;
       font-size: 24px;
       letter-spacing: .08em;
+      min-height: 140px;
     }
 
     .photo:first-child {
       grid-row: span 2;
     }
 
-    .editor {
-      display: none;
-      margin-top: 16px;
-      padding: 18px;
-      border: 1px solid rgba(255,139,95,.28);
-      background: rgba(0,0,0,.22);
+    .hidden {
+      display: none !important;
     }
 
-    .editor.is-open {
-      display: grid;
-      gap: 12px;
-    }
-
-    .editor input,
-    .editor textarea {
-      width: 100%;
-      border: 1px solid rgba(255,247,223,.16);
-      background: rgba(0,0,0,.24);
-      padding: 12px;
-      outline: none;
-    }
-
-    .editor textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .editor-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .footer {
-      padding: 48px clamp(28px, 7vw, 110px);
-      border-top: 1px solid var(--line);
-      background: #030508;
-      color: var(--faint);
-      line-height: 1.8;
-    }
-
-    @media (max-width: 980px) {
+    @media (max-width: 860px) {
       body {
-        background-size: auto 720px;
+        overflow: auto;
       }
 
-      .nav {
-        position: static;
-        width: auto;
-        height: auto;
-        padding: 22px;
+      .book {
+        min-height: 100svh;
       }
 
-      .nav-links {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        margin-top: 24px;
+      .view {
+        position: relative;
+        min-height: 100svh;
+        display: none;
       }
 
-      .nav-note {
-        position: static;
-        margin-top: 24px;
+      .view.is-active {
+        display: grid;
       }
 
-      .main {
-        margin-left: 0;
-      }
-
-      .hero {
-        min-height: 78vh;
-      }
-
-      .section-head,
-      .museum-grid,
+      .contents-inner,
+      .page-grid,
       .moment,
-      .photo-wall {
+      .photo-grid {
         grid-template-columns: 1fr;
       }
 
-      .timeline::before {
-        left: 0;
+      .chapter-link {
+        grid-template-columns: 54px 1fr;
       }
 
-      .moment {
-        padding-left: 22px;
+      .chapter-desc {
+        grid-column: 2;
+      }
+
+      .page {
+        max-height: none;
       }
 
       .photo:first-child {
@@ -479,345 +464,257 @@
   </style>
 </head>
 <body>
-  <div class="shell">
-    <aside class="nav">
-      <div class="brand">
-        Personal Museum
-        <strong>韩鹏飞</strong>
+  <main class="book">
+    <button class="menu-button" id="menuButton" type="button" aria-label="打开目录">☰</button>
+
+    <section class="view cover is-active" id="cover">
+      <div class="cover-panel">
+        <div class="kicker">A book still being written</div>
+        <h1>《韩鹏飞》</h1>
+        <div class="cover-subtitle">一本仍在书写中的书。</div>
+        <div class="cover-actions">
+          <button type="button" data-go="contents">翻开第一页</button>
+          <button type="button" id="randomFromCover">随机读一页</button>
+        </div>
       </div>
-      <nav class="nav-links" aria-label="网站目录">
-        <a href="#home">首页</a>
-        <a href="#about">我是谁</a>
-        <a href="#timeline">时间轴</a>
-        <a href="#why">为什么</a>
-        <a href="#projects">项目</a>
-        <a href="#thoughts">思考</a>
-        <a href="#ideas">想法仓库</a>
-        <a href="#failures">失败记录</a>
-        <a href="#photos">照片</a>
-        <a href="#future">给未来的信</a>
-        <a href="#contact">联系</a>
-      </nav>
-      <p class="nav-note">这不是一份简历，而是一座会慢慢生长的个人博物馆。</p>
+    </section>
+
+    <section class="view contents" id="contents">
+      <div class="contents-inner">
+        <div>
+          <div class="kicker">Table of Contents</div>
+          <h2>目录</h2>
+          <div class="today-card">
+            <h3>今天的我</h3>
+            <p>2026.7.17</p>
+            <p>最近在做：把个人主页改成一本能翻阅的书。</p>
+            <p>最近在想：留下经历，比展示能力更重要。</p>
+            <button type="button" id="randomFromContents">今天，随机读一页</button>
+          </div>
+        </div>
+
+        <div class="chapter-list" id="chapterList">
+          <button class="chapter-link" type="button" data-chapter="about">
+            <span class="chapter-number">01</span>
+            <span class="chapter-title">关于我</span>
+            <span class="chapter-desc">不是简历，而是一个人的来处。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="timeline">
+            <span class="chapter-number">02</span>
+            <span class="chapter-title">时间轴</span>
+            <span class="chapter-desc">一路走来的故事。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="projects">
+            <span class="chapter-number">03</span>
+            <span class="chapter-title">项目</span>
+            <span class="chapter-desc">创造过什么，也推翻过什么。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="thoughts">
+            <span class="chapter-number">04</span>
+            <span class="chapter-title">思考</span>
+            <span class="chapter-desc">世界观、判断和那些为什么。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="ideas">
+            <span class="chapter-number">05</span>
+            <span class="chapter-title">想法仓库</span>
+            <span class="chapter-desc">还没有成形的灵感。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="failures">
+            <span class="chapter-number">06</span>
+            <span class="chapter-title">失败记录</span>
+            <span class="chapter-desc">真实的尝试和推翻。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="photos">
+            <span class="chapter-number">07</span>
+            <span class="chapter-title">照片</span>
+            <span class="chapter-desc">生活留下来的光。</span>
+          </button>
+          <button class="chapter-link" type="button" data-chapter="future">
+            <span class="chapter-number">08</span>
+            <span class="chapter-title">给未来的信</span>
+            <span class="chapter-desc">写给几年后的自己。</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view chapter" id="chapterView" data-tone="archive">
+      <article class="page" id="page"></article>
+    </section>
+
+    <aside class="menu" id="menu">
+      <div class="menu-grid">
+        <button type="button" data-go="cover">封面</button>
+        <button type="button" data-go="contents">目录</button>
+        <button type="button" data-chapter="about">关于我</button>
+        <button type="button" data-chapter="timeline">时间轴</button>
+        <button type="button" data-chapter="projects">项目</button>
+        <button type="button" data-chapter="thoughts">思考</button>
+        <button type="button" data-chapter="photos">照片</button>
+      </div>
     </aside>
-
-    <main class="main">
-      <section class="hero" id="home">
-        <div class="hero-inner">
-          <div class="kicker">Wenchang / Digital Garden</div>
-          <h1>韩鹏飞的<br>个人博物馆</h1>
-          <div class="subtitle">来自文昌的追风者</div>
-          <p class="hero-copy">我想把经历、项目、思考、照片、失败和未来都放在这里。它不是一个发光的广告牌，而是一本可以慢慢翻阅的书。</p>
-          <div class="hero-actions">
-            <a href="#timeline">看成长轨迹</a>
-            <a href="#ideas">进入想法仓库</a>
-            <a href="#future">给未来的信</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="section-head">
-          <div>
-            <div class="label">About</div>
-            <h2>我是谁</h2>
-            <p class="section-intro">我是韩鹏飞，一个来自海南文昌的大学生。乐于接触新鲜事物，乐观开朗，积极向上，热爱篮球，也喜欢看着好看的风景发呆。</p>
-          </div>
-        </div>
-        <div class="museum-grid">
-          <article class="exhibit">
-            <h3>来处</h3>
-            <p>文昌的风、晚霞和椰影，是这个网站的底色。它提醒我：一个人的表达，也可以有自己的气候。</p>
-          </article>
-          <article class="exhibit">
-            <h3>性格</h3>
-            <p>我喜欢把复杂的问题拆开，保持好奇，然后一点点做出能被别人看见的东西。</p>
-          </article>
-          <article class="exhibit">
-            <h3>生活</h3>
-            <p>篮球让我保持热烈，风景让我保持松弛。一个让我向前跑，一个让我安静下来。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="timeline">
-        <div class="section-head">
-          <div>
-            <div class="label">Timeline</div>
-            <h2>人生时间轴</h2>
-            <p class="section-intro">别人看到的不是突然出现的我，而是一路变化、尝试和成长的我。</p>
-          </div>
-          <button class="add-entry" data-editor="timeline">添加记录</button>
-        </div>
-        <div class="timeline" id="timelineList">
-          <article class="moment">
-            <div class="year">2023</div>
-            <div class="moment-card">
-              <h3>第一次认真记录自己的方向</h3>
-              <p>开始意识到，经历如果不被记录，就会很快变模糊。</p>
-            </div>
-          </article>
-          <article class="moment">
-            <div class="year">2026</div>
-            <div class="moment-card">
-              <h3>开始搭建个人博物馆</h3>
-              <p>不只为了展示给别人看，也为了让未来的自己能回来翻阅。</p>
-            </div>
-          </article>
-        </div>
-        <div class="editor" id="timelineEditor">
-          <input id="timelineYear" placeholder="年份，例如 2026">
-          <input id="timelineTitle" placeholder="事件标题">
-          <textarea id="timelineText" placeholder="写下这段经历为什么重要"></textarea>
-          <div class="editor-actions">
-            <button class="save-entry" data-save="timeline">保存</button>
-            <button class="close-editor" data-close="timeline">取消</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="why">
-        <div class="section-head">
-          <div>
-            <div class="label">Why</div>
-            <h2>为什么而活</h2>
-          </div>
-        </div>
-        <p class="quote">我喜欢创造。我喜欢把复杂的问题变简单。我希望留下真正有价值的东西，而不是只追逐一时好看的外壳。</p>
-      </section>
-
-      <section class="section" id="projects">
-        <div class="section-head">
-          <div>
-            <div class="label">Projects</div>
-            <h2>我的项目</h2>
-            <p class="section-intro">项目不只是结果，也是问题、选择、推翻和重新开始的过程。</p>
-          </div>
-          <button class="add-entry" data-editor="project">添加项目</button>
-        </div>
-        <div class="stack" id="projectList">
-          <article class="entry">
-            <h3>个人博物馆网站</h3>
-            <p>从一个炫酷主页，转向一个能长期记录自己的数字花园。</p>
-          </article>
-        </div>
-        <div class="editor" id="projectEditor">
-          <input id="projectTitle" placeholder="项目名称">
-          <textarea id="projectText" placeholder="写下项目背景、过程、收获"></textarea>
-          <div class="editor-actions">
-            <button class="save-entry" data-save="project">保存</button>
-            <button class="close-editor" data-close="project">取消</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="thoughts">
-        <div class="section-head">
-          <div>
-            <div class="label">Thoughts</div>
-            <h2>我的思考</h2>
-            <p class="section-intro">这里放我为什么做一件事、如何看待一个问题、以及那些还没有完全成形的判断。</p>
-          </div>
-          <button class="add-entry" data-editor="thought">添加思考</button>
-        </div>
-        <div class="stack" id="thoughtList">
-          <article class="entry">
-            <h3>为什么要做这个网站</h3>
-            <p>不是为了炫耀，而是为了给经历一个容器。几年以后再回来，我希望还能看见现在的自己。</p>
-          </article>
-        </div>
-        <div class="editor" id="thoughtEditor">
-          <input id="thoughtTitle" placeholder="思考标题">
-          <textarea id="thoughtText" placeholder="写下你的思考"></textarea>
-          <div class="editor-actions">
-            <button class="save-entry" data-save="thought">保存</button>
-            <button class="close-editor" data-close="thought">取消</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="ideas">
-        <div class="section-head">
-          <div>
-            <div class="label">Ideas</div>
-            <h2>想法仓库</h2>
-            <p class="section-intro">一些突然出现、暂时还没有归宿的想法。它们也许会变成项目，也许只是提醒我曾经这样想过。</p>
-          </div>
-          <button class="add-entry" data-editor="idea">添加想法</button>
-        </div>
-        <div class="stack" id="ideaList">
-          <article class="entry">
-            <h3>AI Agent 与个人记录</h3>
-            <p>如果 AI 能帮助整理经历、提炼思考、连接项目，也许个人网站会变成一个真正会生长的系统。</p>
-          </article>
-        </div>
-        <div class="editor" id="ideaEditor">
-          <input id="ideaTitle" placeholder="想法标题">
-          <textarea id="ideaText" placeholder="写下这个想法"></textarea>
-          <div class="editor-actions">
-            <button class="save-entry" data-save="idea">保存</button>
-            <button class="close-editor" data-close="idea">取消</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="failures">
-        <div class="section-head">
-          <div>
-            <div class="label">Failures</div>
-            <h2>失败记录</h2>
-            <p class="section-intro">失败不是污点。它们是判断力变清楚之前，必须留下的痕迹。</p>
-          </div>
-          <button class="add-entry" data-editor="failure">添加失败</button>
-        </div>
-        <div class="stack" id="failureList">
-          <article class="entry">
-            <h3>第一个版本太像展示页</h3>
-            <p>我发现自己真正想要的不是炫酷，而是能长期保存经历、思考和心境的空间。</p>
-          </article>
-        </div>
-        <div class="editor" id="failureEditor">
-          <input id="failureTitle" placeholder="失败标题">
-          <textarea id="failureText" placeholder="写下失败、原因和学到的东西"></textarea>
-          <div class="editor-actions">
-            <button class="save-entry" data-save="failure">保存</button>
-            <button class="close-editor" data-close="failure">取消</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="photos">
-        <div class="section-head">
-          <div>
-            <div class="label">Photos</div>
-            <h2>照片</h2>
-            <p class="section-intro">风景、篮球、日常和安静的时刻。它们不解释我，但会让别人更接近我。</p>
-          </div>
-        </div>
-        <div class="photo-wall">
-          <div class="photo">文昌晚霞</div>
-          <div class="photo">椰影</div>
-          <div class="photo">篮球</div>
-          <div class="photo">风景</div>
-          <div class="photo">日常</div>
-        </div>
-      </section>
-
-      <section class="section" id="future">
-        <div class="section-head">
-          <div>
-            <div class="label">Future Letter</div>
-            <h2>给未来的信</h2>
-          </div>
-        </div>
-        <article class="entry">
-          <h3>2026.7</h3>
-          <p>如果三年后的你看到这里，希望你还没有忘记为什么开始。希望你已经做出一些真正有价值的东西。如果失败了也没关系，但不要停止记录，不要停止思考。</p>
-        </article>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="section-head">
-          <div>
-            <div class="label">Contact</div>
-            <h2>联系</h2>
-            <p class="section-intro">这里以后可以放邮箱、GitHub、社交账号或作品链接。现在，这座博物馆还在生长。</p>
-          </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <p>韩鹏飞 · 来自文昌的追风者</p>
-        <p>这个网站会继续记录经历、项目、思考、失败、照片和未来。</p>
-      </footer>
-    </main>
-  </div>
+  </main>
 
   <script>
-    const editorConfig = {
+    const chapters = {
+      about: {
+        number: "01",
+        title: "关于我",
+        tone: "archive",
+        html: `
+          <div class="chapter-label">Chapter 01</div>
+          <h2>关于我</h2>
+          <p>我是韩鹏飞，一个来自海南文昌的大学生。乐于接触新鲜事物，乐观开朗，积极向上，热爱篮球，也喜欢看着好看的风景发呆。</p>
+          <div class="page-grid">
+            <div class="card"><h3>来处</h3><p>文昌的海风、晚霞和椰影，是这本书的第一层底色。</p></div>
+            <div class="card"><h3>性格</h3><p>我喜欢把复杂的问题拆开，保持好奇，然后一点点做出能被看见的东西。</p></div>
+            <div class="card"><h3>生活</h3><p>篮球让我保持热烈，风景让我保持松弛。</p></div>
+            <div class="card"><h3>方向</h3><p>我希望留下真正有价值的软件、记录和思考。</p></div>
+          </div>
+        `
+      },
       timeline: {
-        editor: "timelineEditor",
-        target: "timelineList",
-        fields: ["timelineYear", "timelineTitle", "timelineText"],
-        storage: "museum-timeline"
+        number: "02",
+        title: "时间轴",
+        tone: "archive",
+        html: `
+          <div class="chapter-label">Chapter 02</div>
+          <h2>时间轴</h2>
+          <p>你不是突然出现的，而是一路成长过来的。</p>
+          <div class="timeline">
+            <div class="moment"><div class="year">2023</div><div><h3>开始认真记录自己的方向</h3><p>意识到经历如果不被记录，就会很快变模糊。</p></div></div>
+            <div class="moment"><div class="year">2026</div><div><h3>开始搭建个人博物馆</h3><p>不只为了展示给别人看，也为了让未来的自己能回来翻阅。</p></div></div>
+          </div>
+        `
       },
-      project: {
-        editor: "projectEditor",
-        target: "projectList",
-        fields: ["projectTitle", "projectText"],
-        storage: "museum-projects"
+      projects: {
+        number: "03",
+        title: "项目",
+        tone: "archive",
+        html: `
+          <div class="chapter-label">Chapter 03</div>
+          <h2>项目</h2>
+          <p>项目不只是结果，也是问题、选择、推翻和重新开始的过程。</p>
+          <div class="page-grid">
+            <div class="card"><h3>个人博物馆网站</h3><p>从一个炫酷主页，转向一个能长期记录自己的数字花园。</p></div>
+            <div class="card"><h3>未来项目</h3><p>这里会继续记录课程作品、AI 实验、工具开发和真正想长期维护的东西。</p></div>
+          </div>
+        `
       },
-      thought: {
-        editor: "thoughtEditor",
-        target: "thoughtList",
-        fields: ["thoughtTitle", "thoughtText"],
-        storage: "museum-thoughts"
+      thoughts: {
+        number: "04",
+        title: "思考",
+        tone: "note",
+        html: `
+          <div class="chapter-label">Chapter 04</div>
+          <h2>思考</h2>
+          <p>我为什么做一件事，如何看待一个问题，以及那些还没有完全成形的判断。</p>
+          <div class="card"><h3>为什么要做这个网站</h3><p>不是为了炫耀，而是为了给经历一个容器。几年以后再回来，我希望还能看见现在的自己。</p></div>
+        `
       },
-      idea: {
-        editor: "ideaEditor",
-        target: "ideaList",
-        fields: ["ideaTitle", "ideaText"],
-        storage: "museum-ideas"
+      ideas: {
+        number: "05",
+        title: "想法仓库",
+        tone: "note",
+        html: `
+          <div class="chapter-label">Chapter 05</div>
+          <h2>想法仓库</h2>
+          <p>一些突然出现、暂时还没有归宿的想法。它们也许会变成项目，也许只是提醒我曾经这样想过。</p>
+          <div class="card"><h3>AI Agent 与个人记录</h3><p>如果 AI 能帮助整理经历、提炼思考、连接项目，个人网站会不会变成一个真正会生长的系统？</p></div>
+        `
       },
-      failure: {
-        editor: "failureEditor",
-        target: "failureList",
-        fields: ["failureTitle", "failureText"],
-        storage: "museum-failures"
+      failures: {
+        number: "06",
+        title: "失败记录",
+        tone: "archive",
+        html: `
+          <div class="chapter-label">Chapter 06</div>
+          <h2>失败记录</h2>
+          <p>失败不是污点。它们是判断力变清楚之前，必须留下的痕迹。</p>
+          <div class="card"><h3>第一个版本太像展示页</h3><p>我发现自己真正想要的不是炫酷，而是能长期保存经历、思考和心境的空间。</p></div>
+        `
+      },
+      photos: {
+        number: "07",
+        title: "照片",
+        tone: "photo",
+        html: `
+          <div class="chapter-label">Chapter 07</div>
+          <h2>照片</h2>
+          <p>风景、篮球、日常和安静的时刻。它们不解释我，但会让别人更接近我。</p>
+          <div class="photo-grid">
+            <div class="photo">文昌晚霞</div>
+            <div class="photo">椰影</div>
+            <div class="photo">篮球</div>
+            <div class="photo">风景</div>
+            <div class="photo">日常</div>
+          </div>
+        `
+      },
+      future: {
+        number: "08",
+        title: "给未来的信",
+        tone: "note",
+        html: `
+          <div class="chapter-label">Chapter 08</div>
+          <h2>给未来的信</h2>
+          <p>2026.7</p>
+          <p>如果三年后的你看到这里，希望你还没有忘记为什么开始。希望你已经做出一些真正有价值的东西。如果失败了也没关系，但不要停止记录，不要停止思考。</p>
+        `
       }
     };
 
-    function createEntry(type, values) {
-      if (type === "timeline") {
-        const article = document.createElement("article");
-        article.className = "moment";
-        article.innerHTML = `<div class="year"></div><div class="moment-card"><h3></h3><p></p></div>`;
-        article.querySelector(".year").textContent = values[0];
-        article.querySelector("h3").textContent = values[1];
-        article.querySelector("p").textContent = values[2];
-        return article;
+    const views = document.querySelectorAll(".view");
+    const page = document.getElementById("page");
+    const chapterView = document.getElementById("chapterView");
+    const menu = document.getElementById("menu");
+    const chapterKeys = Object.keys(chapters);
+
+    function showView(id) {
+      views.forEach((view) => view.classList.toggle("is-active", view.id === id));
+      menu.classList.remove("is-open");
+    }
+
+    function openChapter(key) {
+      const chapter = chapters[key];
+      if (!chapter) return;
+      chapterView.dataset.tone = chapter.tone;
+      page.innerHTML = chapter.html + `
+        <div class="chapter-actions">
+          <button type="button" data-go="contents">回到目录</button>
+          <button type="button" data-random>随机读一页</button>
+        </div>
+      `;
+      showView("chapterView");
+    }
+
+    function randomChapter() {
+      const key = chapterKeys[Math.floor(Math.random() * chapterKeys.length)];
+      openChapter(key);
+    }
+
+    document.addEventListener("click", (event) => {
+      const go = event.target.closest("[data-go]");
+      if (go) showView(go.dataset.go);
+
+      const chapter = event.target.closest("[data-chapter]");
+      if (chapter) openChapter(chapter.dataset.chapter);
+
+      if (event.target.closest("[data-random]")) randomChapter();
+    });
+
+    document.getElementById("menuButton").addEventListener("click", () => {
+      menu.classList.add("is-open");
+    });
+
+    document.getElementById("randomFromCover").addEventListener("click", randomChapter);
+    document.getElementById("randomFromContents").addEventListener("click", randomChapter);
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (menu.classList.contains("is-open")) menu.classList.remove("is-open");
+        else showView("contents");
       }
-
-      const article = document.createElement("article");
-      article.className = "entry";
-      const title = document.createElement("h3");
-      title.textContent = values[0];
-      const text = document.createElement("p");
-      text.textContent = values[1];
-      article.append(title, text);
-      return article;
-    }
-
-    function stored(config) {
-      return JSON.parse(localStorage.getItem(config.storage) || "[]");
-    }
-
-    function saveStored(config, items) {
-      localStorage.setItem(config.storage, JSON.stringify(items));
-    }
-
-    Object.entries(editorConfig).forEach(([type, config]) => {
-      const editor = document.getElementById(config.editor);
-      const target = document.getElementById(config.target);
-      stored(config).forEach((values) => target.appendChild(createEntry(type, values)));
-
-      document.querySelector(`[data-editor="${type}"]`)?.addEventListener("click", () => {
-        editor.classList.add("is-open");
-      });
-
-      document.querySelector(`[data-close="${type}"]`)?.addEventListener("click", () => {
-        editor.classList.remove("is-open");
-      });
-
-      document.querySelector(`[data-save="${type}"]`)?.addEventListener("click", () => {
-        const inputs = config.fields.map((id) => document.getElementById(id));
-        const values = inputs.map((input) => input.value.trim());
-        if (values.some((value) => !value)) return;
-        target.appendChild(createEntry(type, values));
-        saveStored(config, [...stored(config), values]);
-        inputs.forEach((input) => { input.value = ""; });
-        editor.classList.remove("is-open");
-      });
     });
   </script>
 </body>

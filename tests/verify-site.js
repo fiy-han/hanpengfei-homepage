@@ -17,6 +17,30 @@ expectContains("preface section two", "记录如何改变自己");
 expectContains("future letter section", "给未来自己的信");
 expectContains("growth timeline", "开始建立人生档案");
 expectContains("unfinished ending", "未完待续");
+expectContains("book-like contents marker", "开卷目录");
+expectContains("contents reading prompt", "这不是导航，是一本还在生长的书的索引。");
+expectContains("contents shelf class", "contents-shelf");
+
+if (!/\.cover-panel\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;[\s\S]*?backdrop-filter:\s*none;[\s\S]*?box-shadow:\s*none;/m.test(html)) {
+  throw new Error("cover panel still looks like a framed card");
+}
+
+const mobileMediaMatch = html.match(/@media \(max-width: 860px\) \{([\s\S]*?)\n    \}/);
+if (!mobileMediaMatch) {
+  throw new Error("mobile media query missing");
+}
+
+if (!/\.reader-tools\s*\{[\s\S]*?top:\s*18px;[\s\S]*?right:\s*18px;[\s\S]*?bottom:\s*auto;[\s\S]*?left:\s*auto;/m.test(mobileMediaMatch[1])) {
+  throw new Error("mobile reader tools are not positioned in the safe top-right area");
+}
+
+if (!/\.menu-button\s*\{[\s\S]*?top:\s*18px;[\s\S]*?left:\s*18px;/m.test(mobileMediaMatch[1])) {
+  throw new Error("mobile menu button spacing missing");
+}
+
+if (!/\.cover,\s*[\s\S]*?\.contents,\s*[\s\S]*?\.chapter\s*\{[\s\S]*?padding-top:\s*86px;/m.test(mobileMediaMatch[1])) {
+  throw new Error("mobile views are missing top safe spacing");
+}
 
 if (!/创建时间：\s*2026\.07\.17/.test(visibleText)) {
   throw new Error("created date missing in visible text");

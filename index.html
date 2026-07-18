@@ -560,17 +560,17 @@
 
     .chapter {
       place-items: center;
-      padding: clamp(22px, 5vw, 70px);
+      padding: 56px;
       background:
         linear-gradient(90deg, rgba(5,7,10,.2), rgba(5,7,10,.74)),
         var(--chapter-bg, var(--paper));
     }
 
     .page {
-      width: min(980px, 100%);
-      max-height: min(760px, calc(100vh - 44px));
+      width: min(1680px, calc(100vw - 112px));
+      max-height: min(900px, calc(100vh - 112px));
       overflow: auto;
-      padding: clamp(34px, 6vw, 76px);
+      padding: clamp(42px, 4vw, 72px);
       background: var(--page-bg, rgba(244,237,223,.96));
       color: var(--page-text, var(--text));
       box-shadow: 0 38px 130px rgba(0,0,0,.42);
@@ -634,7 +634,7 @@
 
     .chapter[data-tone="preface"] .page {
       --page-bg: #f7efe0;
-      width: min(900px, 100%);
+      width: min(1680px, calc(100vw - 112px));
       border-radius: 2px;
       background:
         linear-gradient(90deg, rgba(29,26,21,.035), transparent 12%, transparent 88%, rgba(29,26,21,.04)),
@@ -847,105 +847,10 @@
       margin-top: 34px;
     }
 
-    .profile-id,
-    .mission-board,
-    .growth-route,
-    .lab-file,
-    .mind-card,
-    .library-note {
-      border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
-      background: color-mix(in srgb, currentColor 5%, transparent);
-    }
-
-    .profile-id {
-      padding: 24px;
-    }
-
-    .profile-id strong {
-      display: block;
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(34px, 5vw, 60px);
-      font-weight: 400;
-      letter-spacing: .08em;
-    }
-
-    .profile-level {
-      margin-top: 12px;
-      color: var(--ember);
-      font-family: "Times New Roman", Georgia, serif;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .trait-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 24px;
-    }
-
-    .trait-tags span {
-      border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
-      padding: 7px 10px;
-      font-size: 13px;
-    }
-
-    .mission-board {
-      display: grid;
-      gap: 16px;
-      padding: 24px;
-    }
-
-    .mission-board h3,
-    .growth-route h3,
-    .lab-file h3,
-    .mind-card h3,
-    .library-note h3 {
-      margin: 0;
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: 28px;
-      font-weight: 400;
-    }
-
-    .growth-route {
-      grid-column: 1 / -1;
-      padding: 22px;
-    }
-
-    .route-line {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      align-items: center;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .route-line span {
-      border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
-      padding-top: 12px;
-      color: color-mix(in srgb, currentColor 68%, transparent);
-      font-size: 13px;
-    }
-
     .lab-board {
       display: grid;
       gap: 18px;
       margin-top: 34px;
-    }
-
-    .lab-status {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: end;
-      padding-bottom: 18px;
-      border-bottom: 1px solid rgba(244,237,223,.16);
-    }
-
-    .lab-status strong {
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: clamp(30px, 4vw, 52px);
-      font-weight: 400;
     }
 
     .lab-code {
@@ -966,16 +871,6 @@
       width: 70%;
       height: 100%;
       background: linear-gradient(90deg, var(--ember), #ffd0a7);
-    }
-
-    .lab-files {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .lab-file {
-      padding: 20px;
     }
 
     .mind-map {
@@ -1004,25 +899,9 @@
       transform: rotate(-18deg);
     }
 
-    .mind-core,
     .mind-node {
       position: absolute;
       z-index: 1;
-    }
-
-    .mind-core {
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 150px;
-      height: 150px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid rgba(29,26,21,.18);
-      background: rgba(255,255,255,.36);
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: 28px;
     }
 
     .mind-node {
@@ -1083,37 +962,6 @@
       color: #19130e;
     }
 
-    .book-spine summary {
-      min-height: 150px;
-      cursor: pointer;
-      list-style: none;
-      display: grid;
-      align-content: end;
-      justify-items: start;
-      padding: 14px;
-      writing-mode: horizontal-tb;
-      font-family: "STSong", "SimSun", "Songti SC", serif;
-      font-size: 22px;
-      letter-spacing: .12em;
-    }
-
-    .book-spine summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .book-spine p {
-      margin: 0;
-      padding: 14px;
-      background: rgba(247,240,223,.92);
-      writing-mode: horizontal-tb;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .library-note {
-      padding: 20px;
-    }
-
     .gallery-wall {
       display: grid;
       grid-template-columns: 1.2fr .8fr .8fr;
@@ -1165,6 +1013,587 @@
       font-size: 12px;
     }
 
+    .cinematic-stage {
+      position: relative;
+      min-height: clamp(620px, 68vh, 820px);
+      margin-top: 28px;
+      overflow: hidden;
+    }
+
+    .chapter[data-tone="profile"] .page,
+    .chapter[data-tone="note"] .page,
+    .chapter[data-tone="library"] .page {
+      width: min(1680px, calc(100vw - 112px));
+    }
+
+    .chapter[data-tone="project"] .page,
+    .chapter[data-tone="photo"] .page {
+      width: min(1680px, calc(100vw - 112px));
+    }
+
+    .cinematic-profile {
+      display: grid;
+      grid-template-columns: minmax(380px, .72fr) minmax(720px, 1.28fr);
+      gap: 64px;
+      align-items: stretch;
+      min-width: 1260px;
+    }
+
+    .profile-portrait {
+      position: relative;
+      min-height: clamp(620px, 68vh, 820px);
+      padding: 44px;
+      display: grid;
+      align-content: end;
+      background:
+        linear-gradient(180deg, rgba(247,240,223,.1), rgba(29,26,21,.1)),
+        url("assets/wenchang-sunset.png") center / cover;
+      color: var(--cream);
+      box-shadow: inset 0 -180px 160px rgba(0,0,0,.62);
+    }
+
+    .profile-portrait::before {
+      content: "HAN PENGFEI";
+      position: absolute;
+      top: 28px;
+      left: 32px;
+      color: rgba(244,237,223,.54);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 12px;
+      letter-spacing: .34em;
+    }
+
+    .profile-portrait strong {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(48px, 6vw, 86px);
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .profile-portrait span {
+      color: #ffd0a7;
+      letter-spacing: .16em;
+    }
+
+    .profile-manifest {
+      display: grid;
+      align-content: space-between;
+      gap: 28px;
+    }
+
+    .manifest-line {
+      padding: 30px 0;
+      border-top: 1px solid rgba(29,26,21,.14);
+    }
+
+    .manifest-line p {
+      max-width: 860px;
+      font-size: 18px;
+    }
+
+    .manifest-line strong,
+    .lab-panel strong,
+    .orbit-card strong,
+    .reading-panel strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 12px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+
+    .profile-path {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(29,26,21,.68);
+      font-size: 14px;
+    }
+
+    .profile-path i {
+      flex: 1;
+      height: 1px;
+      background: rgba(29,26,21,.16);
+    }
+
+    .cinematic-lab {
+      display: grid;
+      grid-template-columns: minmax(760px, 1.24fr) minmax(420px, .76fr);
+      gap: 46px;
+      min-width: 1260px;
+      min-height: clamp(620px, 68vh, 820px);
+    }
+
+    .lab-screen {
+      position: relative;
+      padding: 46px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0)),
+        radial-gradient(circle at 72% 28%, rgba(255,208,167,.16), transparent 30%),
+        #091017;
+      border: 1px solid rgba(244,237,223,.16);
+      overflow: hidden;
+      box-shadow: inset 0 0 120px rgba(0,0,0,.36);
+    }
+
+    .lab-screen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px);
+      pointer-events: none;
+    }
+
+    .lab-screen h3 {
+      position: relative;
+      z-index: 1;
+      margin: 44px 0 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(64px, 6vw, 112px);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .lab-meter {
+      position: relative;
+      z-index: 1;
+      margin-top: 40px;
+    }
+
+    .lab-meter div {
+      height: 14px;
+      border: 1px solid rgba(244,237,223,.2);
+      background: rgba(244,237,223,.08);
+    }
+
+    .lab-meter span {
+      display: block;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--ember), #ffd0a7);
+    }
+
+    .lab-panel {
+      display: grid;
+      align-content: center;
+      gap: 28px;
+    }
+
+    .lab-panel section {
+      padding: 24px 0;
+      border-top: 1px solid rgba(244,237,223,.14);
+    }
+
+    .lab-panel p {
+      font-size: 17px;
+    }
+
+    .cinematic-orbit {
+      min-width: 1260px;
+      min-height: clamp(620px, 68vh, 820px);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(162,77,50,.14), transparent 16%),
+        radial-gradient(circle at 30% 30%, rgba(87,124,132,.13), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0));
+    }
+
+    .orbit-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(29,26,21,.18);
+      background: rgba(247,240,223,.72);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 42px;
+      z-index: 2;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      inset: 58px 170px;
+      border: 1px solid rgba(29,26,21,.12);
+      border-radius: 50%;
+      transform: rotate(-8deg);
+    }
+
+    .orbit-ring:nth-child(2) {
+      inset: 128px 76px;
+      transform: rotate(18deg);
+    }
+
+    .orbit-card {
+      position: absolute;
+      z-index: 3;
+      width: 310px;
+      padding: 24px;
+      background: rgba(247,240,223,.82);
+      border-left: 2px solid var(--ember);
+      box-shadow: 0 18px 48px rgba(0,0,0,.08);
+    }
+
+    .orbit-card h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 38px;
+      font-weight: 400;
+    }
+
+    .orbit-card.ai { left: 4%; top: 12%; }
+    .orbit-card.machine { right: 5%; top: 18%; }
+    .orbit-card.create { left: 11%; bottom: 12%; }
+    .orbit-card.future { right: 12%; bottom: 10%; }
+
+    .cinematic-library {
+      display: grid;
+      grid-template-columns: minmax(900px, 1.5fr) minmax(320px, .5fr);
+      gap: 46px;
+      align-items: stretch;
+      min-width: 1260px;
+      min-height: clamp(560px, 60vh, 680px);
+    }
+
+    .library-aisle {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      min-height: 0;
+      height: 100%;
+      padding: 42px 42px 28px;
+      background:
+        linear-gradient(90deg, rgba(29,26,21,.08), transparent),
+        #eadfc9;
+      border-bottom: 18px solid rgba(29,26,21,.22);
+    }
+
+    .library-volume {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      align-content: end;
+      padding: 22px 18px;
+      background: linear-gradient(180deg, #6f3528, #d5b08e);
+      color: #19130e;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 28px;
+      letter-spacing: .08em;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .library-volume:nth-child(2) {
+      background: linear-gradient(180deg, #274653, #d7c5a7);
+    }
+
+    .library-volume:nth-child(3) {
+      background: linear-gradient(180deg, #8a5a36, #ead8bd);
+    }
+
+    .reading-panel {
+      display: grid;
+      align-content: center;
+      gap: 22px;
+    }
+
+    .reading-panel blockquote {
+      margin: 0;
+      padding-left: 24px;
+      border-left: 3px solid var(--ember);
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1.6;
+    }
+
+    .cinematic-gallery {
+      display: grid;
+      grid-template-columns: minmax(720px, 1.15fr) minmax(500px, .85fr);
+      gap: 24px;
+      min-width: 1260px;
+      min-height: clamp(620px, 68vh, 820px);
+    }
+
+    .gallery-hero {
+      position: relative;
+      display: grid;
+      align-content: end;
+      padding: 46px;
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.72)),
+        url("assets/wenchang-sunset.png") center / cover;
+      color: var(--cream);
+    }
+
+    .gallery-hero strong {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(42px, 5vw, 78px);
+      font-weight: 400;
+    }
+
+    .gallery-strip {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .gallery-still {
+      display: grid;
+      align-content: end;
+      padding: 24px;
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.66)),
+        url("assets/wenchang-sunset.png") center / cover;
+      color: var(--cream);
+      min-height: 0;
+    }
+
+    .gallery-still strong {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .preface-stage,
+    .timeline-panorama,
+    .thought-manuscript,
+    .failure-vault,
+    .journal-calendar,
+    .future-desk,
+    .afterword-desk {
+      min-width: 1260px;
+      min-height: clamp(600px, 66vh, 800px);
+    }
+
+    .preface-stage {
+      display: grid;
+      grid-template-columns: minmax(520px, .92fr) minmax(640px, 1.08fr);
+      gap: 54px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .preface-statement {
+      display: grid;
+      align-content: end;
+      padding: 46px;
+      color: var(--cream);
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.74)),
+        url("assets/wenchang-sunset.png") center / cover;
+      box-shadow: inset 0 -180px 160px rgba(0,0,0,.58);
+    }
+
+    .preface-statement strong {
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(48px, 5vw, 82px);
+      font-weight: 400;
+      line-height: 1.18;
+    }
+
+    .preface-pages {
+      display: grid;
+      align-content: center;
+      gap: 26px;
+    }
+
+    .preface-pages section,
+    .failure-note,
+    .future-paper,
+    .afterword-note {
+      padding: 24px 0;
+      border-top: 1px solid rgba(29,26,21,.14);
+    }
+
+    .preface-pages h3,
+    .timeline-event h3,
+    .thought-page h3,
+    .failure-note h3,
+    .journal-day h3,
+    .future-paper h3,
+    .afterword-note h3 {
+      margin: 0;
+      font-family: "STSong", "SimSun", "Songti SC", serif;
+      font-size: clamp(28px, 2.8vw, 44px);
+      font-weight: 400;
+      letter-spacing: .08em;
+    }
+
+    .timeline-panorama {
+      position: relative;
+      display: grid;
+      align-content: center;
+      margin-top: 30px;
+      padding: 44px;
+      background:
+        linear-gradient(90deg, rgba(29,26,21,.08), transparent),
+        radial-gradient(circle at 80% 28%, rgba(162,77,50,.12), transparent 26%);
+      overflow: hidden;
+    }
+
+    .timeline-panorama::before {
+      content: "";
+      position: absolute;
+      left: 60px;
+      right: 60px;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(29,26,21,.34), transparent);
+    }
+
+    .timeline-track {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 36px;
+      align-items: center;
+    }
+
+    .timeline-event {
+      min-height: 340px;
+      display: grid;
+      align-content: end;
+      padding: 26px 0;
+      border-top: 1px solid rgba(29,26,21,.18);
+    }
+
+    .timeline-event strong,
+    .failure-code,
+    .journal-date {
+      color: var(--ember);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 18px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .thought-manuscript {
+      display: grid;
+      grid-template-columns: minmax(700px, 1.1fr) minmax(420px, .9fr);
+      gap: 56px;
+      align-items: stretch;
+      margin-top: 30px;
+      background:
+        linear-gradient(90deg, rgba(29,26,21,.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(29,26,21,.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+    }
+
+    .thought-page {
+      display: grid;
+      align-content: center;
+      padding: 48px;
+      background: rgba(255,255,255,.34);
+      border-left: 3px solid var(--ember);
+    }
+
+    .thought-sidebar {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+    }
+
+    .thought-mark {
+      padding: 22px 0;
+      border-top: 1px solid rgba(29,26,21,.14);
+      color: rgba(29,26,21,.68);
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .failure-vault {
+      display: grid;
+      grid-template-columns: minmax(420px, .72fr) minmax(720px, 1.28fr);
+      gap: 52px;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+
+    .failure-door {
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,208,167,.18), transparent 28%),
+        linear-gradient(135deg, #15191d, #071017);
+      border: 1px solid rgba(244,237,223,.16);
+      box-shadow: inset 0 0 120px rgba(0,0,0,.52);
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: clamp(52px, 6vw, 104px);
+      letter-spacing: .18em;
+    }
+
+    .failure-files {
+      display: grid;
+      align-content: center;
+      gap: 28px;
+    }
+
+    .journal-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: minmax(120px, 1fr);
+      gap: 1px;
+      margin-top: 30px;
+      background: rgba(29,26,21,.16);
+      border: 1px solid rgba(29,26,21,.16);
+    }
+
+    .journal-day {
+      display: grid;
+      align-content: space-between;
+      padding: 22px;
+      background: rgba(247,240,223,.92);
+    }
+
+    .journal-day.feature {
+      grid-column: span 3;
+      grid-row: span 2;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0)),
+        #efe0c8;
+    }
+
+    .future-desk,
+    .afterword-desk {
+      display: grid;
+      grid-template-columns: minmax(760px, 1.2fr) minmax(380px, .8fr);
+      gap: 52px;
+      align-items: stretch;
+      margin-top: 30px;
+      background:
+        radial-gradient(circle at 76% 24%, rgba(162,77,50,.12), transparent 26%),
+        linear-gradient(90deg, rgba(29,26,21,.05), transparent);
+    }
+
+    .future-paper,
+    .afterword-note {
+      display: grid;
+      align-content: center;
+      padding: 48px;
+      background: rgba(255,255,255,.34);
+      border-left: 3px solid var(--ember);
+    }
+
+    .future-side,
+    .afterword-side {
+      display: grid;
+      align-content: center;
+      gap: 20px;
+      color: rgba(29,26,21,.68);
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
     .timeline {
       display: grid;
       gap: 22px;
@@ -1183,14 +1612,6 @@
       color: var(--ember);
       font-family: "Times New Roman", Georgia, serif;
       font-size: 24px;
-    }
-
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      grid-auto-rows: 160px;
-      gap: 12px;
-      margin-top: 34px;
     }
 
     .page-quote {
@@ -1256,10 +1677,6 @@
       font-size: 24px;
       letter-spacing: .08em;
       min-height: 140px;
-    }
-
-    .photo:first-child {
-      grid-row: span 2;
     }
 
     .hidden {
@@ -1335,29 +1752,15 @@
       .contents-inner,
       .page-grid,
       .profile-dossier,
-      .lab-files,
       .moment,
-      .photo-grid,
       .gallery-wall,
       .chapter-meta,
       .growth-line {
         grid-template-columns: 1fr;
       }
 
-      .growth-route {
-        grid-column: auto;
-      }
-
-      .route-line {
-        grid-template-columns: 1fr;
-      }
-
       .mind-map {
         min-height: 720px;
-      }
-
-      .mind-core {
-        top: 45%;
       }
 
       .mind-node {
@@ -1423,9 +1826,6 @@
         max-height: none;
       }
 
-      .photo:first-child {
-        grid-row: span 1;
-      }
     }
   </style>
 </head>
@@ -1616,38 +2016,25 @@
         title: "为什么记录",
         tone: "preface",
         html: `
-          <section class="preface-hero">
-            <div class="chapter-label">CHAPTER 00 / WHY RECORD</div>
-            <h2>为什么记录？</h2>
-            <div class="preface-lede">因为没有记录的经历，最终会消失。</div>
-          </section>
+          <div class="chapter-label">CHAPTER 00 / WHY RECORD</div>
+          <h2>为什么记录？</h2>
+          <p>因为没有记录的经历，最终会消失。这一章是一张序言长页，让别人先理解这本书为什么存在。</p>
           <div class="chapter-meta">
             <div>阅读时间：<span>3 分钟</span></div>
             <div>创建时间：<span>2026.07.17</span></div>
             <div>最后修改：<span>2026.07.17</span></div>
             <div>当前状态：<span>探索 AI / 创造工具 / 寻找方向</span></div>
           </div>
-          <section class="preface-section">
-            <h3>为什么开始记录</h3>
-            <p>曾经我发现，很多努力确实发生过，但过一段时间以后，它们只剩下一个模糊的印象。那些突然出现的灵感、被推翻的版本、想明白的一瞬间，如果没有被写下来，就像没有真正存在过。</p>
-            <p>所以我想把项目、思考、失败、照片、阅读和每天的变化放在同一本书里。别人看到的是我的成长轨迹，而未来的我看到的是：自己为什么开始，又一路走到了哪里。</p>
-          </section>
-          <section class="preface-section">
-            <h3>记录如何改变自己</h3>
-            <p>记录不是把生活变得漂亮，而是让自己看清楚：什么事情真的重要，什么选择只是当时的冲动，什么失败其实正在训练判断力。</p>
-            <p>当我回看这些页面时，我希望看到的不只是结果，还有成为现在这个自己的过程。这里会继续增加内容，也会允许修改、补充、归档，因为一本真正的人生之书不应该停在某一天。</p>
-          </section>
-          <div class="growth-line">
-            <div><strong>2026</strong><span>开始建立人生档案</span></div>
-            <div><strong>2027</strong><span>新增更多项目、照片与思考</span></div>
-            <div><strong>2030</strong><span>回看曾经的自己</span></div>
-            <div><strong>未来</strong><span>未完待续</span></div>
+          <div class="cinematic-stage preface-stage">
+            <section class="preface-statement">
+              <strong>我想留下的不只是结果，<br>还有成为现在这个自己的过程。</strong>
+            </section>
+            <section class="preface-pages">
+              <section><h3>为什么开始记录</h3><p>曾经我发现，很多努力确实发生过，但过一段时间以后，它们只剩下一个模糊的印象。那些突然出现的灵感、被推翻的版本、想明白的一瞬间，如果没有被写下来，就像没有真正存在过。</p></section>
+              <section><h3>记录如何改变自己</h3><p>记录不是把生活变得漂亮，而是让自己看清楚：什么事情真的重要，什么选择只是当时的冲动，什么失败其实正在训练判断力。</p></section>
+              <section><h3>给未来自己的信</h3><p>2026，开始建立人生档案。给未来的韩鹏飞：如果你再次翻到这里，希望你还记得为什么开始。不要只保留成功，也不要删掉失败。这本书不会完成，它会随着你继续生活、继续创造、继续思考而慢慢生长。未完待续。</p></section>
+            </section>
           </div>
-          <section class="future-letter">
-            <h3>给未来自己的信</h3>
-            <p>给未来的韩鹏飞：如果你再次翻到这里，希望你还记得为什么开始。不要只保留成功，也不要删掉失败。那些不成熟的想法、反复修改的页面、暂时没有答案的问题，都是你真实走过的路。</p>
-            <p>这本书不会完成。它会随着你继续生活、继续创造、继续思考而慢慢生长。</p>
-          </section>
         `
       },
       about: {
@@ -1657,27 +2044,18 @@
         html: `
           <div class="chapter-label">Chapter 01</div>
           <h2>关于我</h2>
-          <p>这一章不做简历，而像一张人物档案：记录我的来处、状态、兴趣和正在推进的任务。</p>
-          <div class="profile-dossier">
-            <section class="profile-id">
+          <p>这一章是一张为 1440 / 1920 宽屏准备的横向人物档案长卷。不是卡片档案，而是一眼展开的来处、状态和正在推进的任务。</p>
+          <div class="cinematic-stage cinematic-profile profile-dossier">
+            <section class="profile-portrait">
+              <span>探索者 Lv.?</span>
               <strong>韩鹏飞</strong>
-              <div class="profile-level">探索者 Lv.?</div>
-              <p>来自海南文昌的大学生。乐观开朗，积极向上，喜欢篮球，也喜欢看着好看的风景发呆。</p>
-              <div class="trait-tags">
-                <span>AI</span><span>机械</span><span>创造</span><span>篮球</span><span>风景</span>
-              </div>
+              <p>来自文昌的追风者</p>
             </section>
-            <section class="mission-board">
-              <h3>当前任务</h3>
-              <p>建立一本会持续生长的人生之书，把项目、思考、记忆和失败都放进同一个可回看的系统。</p>
-              <h3>人物特质</h3>
-              <p>愿意接触新鲜事物，喜欢把复杂问题拆开，也愿意慢慢做出能被看见的东西。</p>
-            </section>
-            <section class="growth-route">
-              <h3>成长路线</h3>
-              <div class="route-line">
-                <span>文昌</span><span>机械基础</span><span>编程学习</span><span>AI 工具</span><span>长期记录</span>
-              </div>
+            <section class="profile-manifest">
+              <div class="manifest-line"><strong>Origin</strong><p>海南文昌的海风、晚霞和椰影，是这本书最早的底色。</p></div>
+              <div class="manifest-line"><strong>Current Mission</strong><p>建立一本会持续生长的人生之书，把项目、思考、记忆和失败放进同一个可回看的系统。</p></div>
+              <div class="manifest-line"><strong>Traits</strong><p>乐于接触新鲜事物，乐观开朗，积极向上，热爱篮球，也喜欢看着好看的风景发呆。</p></div>
+              <div class="profile-path"><span>文昌</span><i></i><span>机械</span><i></i><span>编程</span><i></i><span>AI</span><i></i><span>长期记录</span></div>
             </section>
           </div>
         `
@@ -1689,10 +2067,14 @@
         html: `
           <div class="chapter-label">Chapter 02</div>
           <h2>时间轴</h2>
-          <p>你不是突然出现的，而是一路成长过来的。</p>
-          <div class="timeline">
-            <div class="moment"><div class="year">2023</div><div><h3>开始认真记录自己的方向</h3><p>意识到经历如果不被记录，就会很快变模糊。</p></div></div>
-            <div class="moment"><div class="year">2026</div><div><h3>开始搭建个人博物馆</h3><p>不只为了展示给别人看，也为了让未来的自己能回来翻阅。</p></div></div>
+          <p>时间轴是一条 1440 / 1920 宽屏成长长廊。你不是突然出现的，而是一路成长过来的。</p>
+          <div class="cinematic-stage timeline-panorama">
+            <div class="timeline-track">
+              <article class="timeline-event"><strong>2023</strong><h3>开始记录方向</h3><p>意识到经历如果不被记录，就会很快变模糊。</p></article>
+              <article class="timeline-event"><strong>2024</strong><h3>学习与试错</h3><p>把兴趣、课程、工具和新的问题慢慢放进同一条成长线。</p></article>
+              <article class="timeline-event"><strong>2026</strong><h3>搭建个人博物馆</h3><p>不只为了展示给别人看，也为了让未来的自己能回来翻阅。</p></article>
+              <article class="timeline-event"><strong>未来</strong><h3>持续生长</h3><p>继续增加项目、思考、照片、阅读和日常记录。</p></article>
+            </div>
           </div>
         `
       },
@@ -1703,22 +2085,19 @@
         html: `
           <div class="chapter-label">Chapter 03</div>
           <h2>创造</h2>
-          <p>这一章像实验室。每个项目不是成品展示，而是一份仍在变化的实验档案。</p>
-          <div class="lab-board">
-            <section class="lab-status">
-              <div>
-                <div class="lab-code">PROJECT / P-001</div>
-                <strong>个人博物馆网站</strong>
-              </div>
-              <div>70%</div>
-              <div class="lab-progress" aria-label="项目进度"><span></span></div>
+          <p>这一章是面向 1440 / 1920 宽屏的暗色实验室控制台。项目不是四宫格，而是一份横向展开、仍在变化的实验档案。</p>
+          <div class="cinematic-stage cinematic-lab lab-board">
+            <section class="lab-screen">
+              <div class="lab-code">PROJECT / P-001</div>
+              <h3>个人博物馆网站</h3>
+              <div class="lab-meter lab-progress"><div><span></span></div><p>当前进度 70% / 正在重构章节体验</p></div>
             </section>
-            <div class="lab-files">
-              <article class="lab-file"><h3>目标</h3><p>把个人主页升级成一本能长期翻阅、持续添加内容的人生之书。</p></article>
-              <article class="lab-file"><h3>过程</h3><p>从电影感封面开始，逐步加入目录、章节、编辑器、搜索和本地内容保存。</p></article>
-              <article class="lab-file"><h3>失败</h3><p>早期版本太像 PPT，也太依赖统一模板，导致每一章缺少自己的世界规则。</p></article>
-              <article class="lab-file"><h3>下一步</h3><p>让每个模块拥有独立 UI 隐喻，并逐渐把本地内容升级为可公开发布的内容系统。</p></article>
-            </div>
+            <section class="lab-panel">
+              <section><strong>Goal</strong><p>把个人主页升级成一本能长期翻阅、持续添加内容的人生之书。</p></section>
+              <section><strong>Process</strong><p>从电影感封面开始，逐步加入目录、章节、编辑器、搜索和本地内容保存。</p></section>
+              <section><strong>Failure</strong><p>早期版本太像 PPT，也太依赖统一模板，导致每一章缺少自己的世界规则。</p></section>
+              <section><strong>Next</strong><p>把本地内容升级为可以公开发布的内容系统，让这本书真正长期生长。</p></section>
+            </section>
           </div>
         `
       },
@@ -1729,8 +2108,20 @@
         html: `
           <div class="chapter-label">Chapter 04</div>
           <h2>思考</h2>
-          <p>我为什么做一件事，如何看待一个问题，以及那些还没有完全成形的判断。</p>
-          <div class="card"><h3>为什么要做这个网站</h3><p>不是为了炫耀，而是为了给经历一个容器。几年以后再回来，我希望还能看见现在的自己。</p></div>
+          <p>思考是一张 1440 / 1920 宽屏手稿桌。这里记录我为什么做一件事，如何看待一个问题，以及那些还没有完全成形的判断。</p>
+          <div class="cinematic-stage thought-manuscript">
+            <section class="thought-page">
+              <h3>为什么要做这个网站</h3>
+              <p>不是为了炫耀，而是为了给经历一个容器。几年以后再回来，我希望还能看见现在的自己。</p>
+              <p>真正重要的不是页面有多炫，而是它能不能在很久之后仍然保存当时的心境、选择和判断。</p>
+            </section>
+            <section class="thought-sidebar">
+              <div class="thought-mark">Question / 为什么开始</div>
+              <div class="thought-mark">Method / 把复杂拆开</div>
+              <div class="thought-mark">Belief / 长期记录</div>
+              <div class="thought-mark">Next / 继续追问</div>
+            </section>
+          </div>
         `
       },
       ideas: {
@@ -1740,25 +2131,15 @@
         html: `
           <div class="chapter-label">Chapter 07</div>
           <h2>想法仓库</h2>
-          <p>这里不是列表，而是一片思维空间。点击节点，像进入一小段正在成形的想法。</p>
-          <div class="mind-map">
-            <div class="mind-core">我的大脑</div>
-            <details class="mind-node ai" open>
-              <summary>AI</summary>
-              <p>如果 AI 能帮助整理经历、提炼思考、连接项目，个人网站会不会变成真正会生长的系统？</p>
-            </details>
-            <details class="mind-node machine">
-              <summary>机械</summary>
-              <p>机械不只是结构和零件，也是一种理解世界如何运转的方式。</p>
-            </details>
-            <details class="mind-node create">
-              <summary>创造</summary>
-              <p>我想做的不只是展示结果，而是留下从问题到答案的完整过程。</p>
-            </details>
-            <details class="mind-node future">
-              <summary>未来</summary>
-              <p>也许几年后，这里会成为我回看选择、判断和成长轨迹的坐标。</p>
-            </details>
+          <p>这一章是一张 1440 / 1920 宽屏思维星图。想法不是散乱节点，而是围绕核心问题运行的一整片轨道。</p>
+          <div class="cinematic-stage cinematic-orbit mind-map">
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring"></div>
+            <div class="orbit-core">我的大脑</div>
+            <article class="orbit-card mind-node ai"><strong>Node 01</strong><h3>AI</h3><p>如果 AI 能整理经历、提炼思考、连接项目，个人网站会不会变成真正会生长的系统？</p></article>
+            <article class="orbit-card mind-node machine"><strong>Node 02</strong><h3>机械</h3><p>机械不只是结构和零件，也是一种理解世界如何运转的方式。</p></article>
+            <article class="orbit-card mind-node create"><strong>Node 03</strong><h3>创造</h3><p>我想做的不只是展示结果，而是留下从问题到答案的完整过程。</p></article>
+            <article class="orbit-card mind-node future"><strong>Node 04</strong><h3>未来</h3><p>几年后，这里会成为我回看选择、判断和成长轨迹的坐标。</p></article>
           </div>
         `
       },
@@ -1769,8 +2150,15 @@
         html: `
           <div class="chapter-label">Chapter 08</div>
           <h2>失败记录</h2>
-          <p>失败不是污点。它们是判断力变清楚之前，必须留下的痕迹。</p>
-          <div class="card"><h3>第一个版本太像展示页</h3><p>我发现自己真正想要的不是炫酷，而是能长期保存经历、思考和心境的空间。</p></div>
+          <p>失败记录是一间 1440 / 1920 宽屏档案库。失败不是污点，它们是判断力变清楚之前必须留下的痕迹。</p>
+          <div class="cinematic-stage failure-vault">
+            <section class="failure-door">VAULT</section>
+            <section class="failure-files">
+              <article class="failure-note"><div class="failure-code">F-001</div><h3>第一个版本太像展示页</h3><p>我发现自己真正想要的不是炫酷，而是能长期保存经历、思考和心境的空间。</p></article>
+              <article class="failure-note"><div class="failure-code">F-002</div><h3>模块太像小卡片</h3><p>当所有内容都变成卡片，网站就会失去章节气质，所以每一章都应该拥有自己的场景。</p></article>
+              <article class="failure-note"><div class="failure-code">F-003</div><h3>仍然保留</h3><p>失败会被归档，而不是删掉。几年后回看，它们会告诉我判断力是怎么长出来的。</p></article>
+            </section>
+          </div>
         `
       },
       photos: {
@@ -1780,13 +2168,14 @@
         html: `
           <div class="chapter-label">Chapter 06</div>
           <h2>摄影</h2>
-          <p>这一章像一间时间摄影展。每一格不是图片占位，而是一段可以继续补照片和故事的记忆。</p>
-          <div class="gallery-wall">
-            <article class="memory-frame large"><strong>文昌晚霞</strong><span>风从海边吹来，天空慢慢暗下去。</span></article>
-            <article class="memory-frame"><strong>椰影</strong><span>家乡的轮廓。</span></article>
-            <article class="memory-frame"><strong>篮球</strong><span>热烈、速度和伙伴。</span></article>
-            <article class="memory-frame"><strong>风景</strong><span>适合发呆的片刻。</span></article>
-            <article class="memory-frame"><strong>日常</strong><span>生活留下来的光。</span></article>
+          <p>这一章是一面为 1440 / 1920 宽屏展开的横向摄影展墙。照片不是小拼贴，而是让人回到那个时间的入口。</p>
+          <div class="cinematic-stage cinematic-gallery gallery-wall">
+            <section class="gallery-hero memory-frame"><strong>文昌晚霞</strong><span>风从海边吹来，天空慢慢暗下去。</span></section>
+            <section class="gallery-strip">
+              <article class="gallery-still memory-frame"><strong>椰影</strong><span>家乡的轮廓。</span></article>
+              <article class="gallery-still memory-frame"><strong>篮球</strong><span>热烈、速度和伙伴。</span></article>
+              <article class="gallery-still memory-frame"><strong>风景</strong><span>适合发呆的片刻。</span></article>
+            </section>
           </div>
         `
       },
@@ -1797,25 +2186,18 @@
         html: `
           <div class="chapter-label">Chapter 05</div>
           <h2>阅读</h2>
-          <p>这里像私人图书馆。点击一本书脊，打开它对我的影响，而不是只看书名。</p>
-          <div class="bookshelf">
-            <div class="book-row">
-              <details class="book-spine">
-                <summary>待读的一本书</summary>
-                <p>这里会记录为什么读、摘录、我的理解、推荐指数，以及它和哪些想法相连。</p>
-              </details>
-              <details class="book-spine">
-                <summary>阅读不是装饰</summary>
-                <p>它应该成为项目、思考和人生选择的底层来源，而不是摆在页面上的标签。</p>
-              </details>
-              <details class="book-spine">
-                <summary>影响我的书</summary>
-                <p>未来可以把真正改变过我的书放在这里，像一排会被翻开的书脊。</p>
-              </details>
-            </div>
-            <section class="library-note">
-              <h3>图书馆规则</h3>
-              <p>每本书都要留下一个问题：它让我重新理解了什么？如果没有这个问题，书名就只是装饰。</p>
+          <p>这一章是一整面 1440 / 1920 宽屏横向书架。阅读不是三块书脊，而是一排沉默站立、等待被抽出的书。</p>
+          <div class="cinematic-stage cinematic-library bookshelf">
+            <section class="library-aisle book-row">
+              <div class="library-volume book-spine">待读的一本书</div>
+              <div class="library-volume book-spine">阅读不是装饰</div>
+              <div class="library-volume book-spine">影响我的书</div>
+              <div class="library-volume book-spine">未来书单</div>
+            </section>
+            <section class="reading-panel">
+              <strong>Private Library</strong>
+              <blockquote>每本书都要留下一个问题：它让我重新理解了什么？</blockquote>
+              <p>这里会记录为什么读、摘录、我的理解、推荐指数，以及它和哪些项目或想法相连。</p>
             </section>
           </div>
         `
@@ -1827,10 +2209,16 @@
         html: `
           <div class="chapter-label">Chapter 09</div>
           <h2>每日记录</h2>
-          <p>每天一句话也可以。完成了什么，失败了什么，想到了什么，读到了什么。</p>
-          <div class="timeline">
-            <div class="moment"><div class="year">今天</div><div><h3>完成</h3><p>继续把网站从页面变成一本书。</p></div></div>
-            <div class="moment"><div class="year">今天</div><div><h3>想到</h3><p>一个长期产品最重要的不是第一眼，而是十年后还能继续使用。</p></div></div>
+          <p>每日记录是一面 1440 / 1920 宽屏日历墙。每天一句话也可以：完成了什么，失败了什么，想到了什么，读到了什么。</p>
+          <div class="cinematic-stage journal-calendar">
+            <article class="journal-day feature"><div class="journal-date">Today</div><h3>继续把网站从页面变成一本书</h3><p>一个长期产品最重要的不是第一眼，而是十年后还能继续使用。</p></article>
+            <article class="journal-day"><div class="journal-date">Mon</div><p>记录一个小进展。</p></article>
+            <article class="journal-day"><div class="journal-date">Tue</div><p>补一个想法。</p></article>
+            <article class="journal-day"><div class="journal-date">Wed</div><p>留下一个问题。</p></article>
+            <article class="journal-day"><div class="journal-date">Thu</div><p>整理项目。</p></article>
+            <article class="journal-day"><div class="journal-date">Fri</div><p>回看失败。</p></article>
+            <article class="journal-day"><div class="journal-date">Sat</div><p>保存一张照片。</p></article>
+            <article class="journal-day"><div class="journal-date">Sun</div><p>给未来留一句话。</p></article>
           </div>
         `
       },
@@ -1841,8 +2229,20 @@
         html: `
           <div class="chapter-label">Chapter 10</div>
           <h2>给未来的信</h2>
-          <p>2026.7</p>
-          <p>如果三年后的你看到这里，希望你还没有忘记为什么开始。希望你已经做出一些真正有价值的东西。如果失败了也没关系，但不要停止记录，不要停止思考。</p>
+          <p>给未来的信是一张 1440 / 1920 宽屏书桌。这封信不是展示，而是把现在的自己寄给几年后的自己。</p>
+          <div class="cinematic-stage future-desk">
+            <section class="future-paper">
+              <h3>2026.7</h3>
+              <p>如果三年后的你看到这里，希望你还没有忘记为什么开始。希望你已经做出一些真正有价值的东西。</p>
+              <p>如果失败了也没关系，但不要停止记录，不要停止思考。不要只保存漂亮的结果，也要留下那些没想明白的夜晚。</p>
+            </section>
+            <section class="future-side">
+              <div>To / Future Han Pengfei</div>
+              <div>From / 2026</div>
+              <div>Status / Still Writing</div>
+              <div>Promise / Keep Creating</div>
+            </section>
+          </div>
         `
       },
       contact: {
@@ -1852,12 +2252,19 @@
         html: `
           <div class="chapter-label">Afterword</div>
           <h2>后记</h2>
-          <p>如果你认真读到了这里，谢谢。</p>
-          <div class="page-grid">
-            <div class="card"><h3>Email</h3><p>以后可以放邮箱。</p></div>
-            <div class="card"><h3>GitHub</h3><p>以后可以放项目链接。</p></div>
-            <div class="card"><h3>Blog / RSS</h3><p>等这本书继续长大，可以加订阅。</p></div>
-            <div class="card"><h3>留言</h3><p>也许以后这里会有一个留言入口。</p></div>
+          <p>后记是一封 1440 / 1920 宽屏收束信。如果你认真读到了这里，谢谢。</p>
+          <div class="cinematic-stage afterword-desk">
+            <section class="afterword-note">
+              <h3>这本书仍在继续</h3>
+              <p>这里以后可以放邮箱、GitHub、Blog / RSS 和留言入口。但它首先是一句收束：谢谢你愿意翻到最后。</p>
+              <p>如果你从这里认识我，希望你看到的不只是技能，而是一个人如何记录、创造、失败、再继续。</p>
+            </section>
+            <section class="afterword-side">
+              <div>Email / 待添加</div>
+              <div>GitHub / 待添加</div>
+              <div>Blog / 待添加</div>
+              <div>Message / 以后也许会有</div>
+            </section>
           </div>
         `
       }

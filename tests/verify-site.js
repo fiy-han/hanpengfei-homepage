@@ -28,16 +28,46 @@ expectContains("local content storage", "hanpengfei.lifeBook.entries");
 expectContains("save entry function", "function saveEntry");
 expectContains("render entries function", "function renderUserEntries");
 expectContains("entry type buttons", "data-entry-type");
-expectContains("profile dossier module", "profile-dossier");
-expectContains("profile explorer level", "探索者 Lv.?");
-expectContains("project lab module", "lab-board");
-expectContains("project progress module", "lab-progress");
-expectContains("mind map module", "mind-map");
-expectContains("mind map node", "mind-node");
-expectContains("private library module", "bookshelf");
-expectContains("book spine module", "book-spine");
-expectContains("gallery wall module", "gallery-wall");
-expectContains("gallery memory frame", "memory-frame");
+expectContains("profile long-scroll scene", "cinematic-profile");
+expectContains("profile portrait panel", "profile-portrait");
+expectContains("project dark lab scene", "cinematic-lab");
+expectContains("project lab console", "lab-screen");
+expectContains("idea star map scene", "cinematic-orbit");
+expectContains("idea orbit core", "orbit-core");
+expectContains("reading wide shelf scene", "cinematic-library");
+expectContains("reading horizontal bookshelf", "library-aisle");
+expectContains("photo exhibition wall scene", "cinematic-gallery");
+expectContains("photo wide exhibition wall", "gallery-hero");
+expectContains("wide stage CSS", ".cinematic-stage");
+expectContains("desktop wide page target", "min(1680px, calc(100vw - 112px))");
+expectContains("desktop 1440 1920 note", "1440 / 1920");
+expectContains("profile desktop minimum", "min-width: 1260px");
+expectContains("desktop stage height", "min-height: clamp(620px, 68vh, 820px)");
+expectContains("preface wide scene", "preface-stage");
+expectContains("timeline wide scene", "timeline-panorama");
+expectContains("thoughts wide scene", "thought-manuscript");
+expectContains("failure wide scene", "failure-vault");
+expectContains("journal wide scene", "journal-calendar");
+expectContains("future wide scene", "future-desk");
+expectContains("afterword wide scene", "afterword-desk");
+expectContains("timeline desktop note", "时间轴是一条 1440 / 1920 宽屏成长长廊");
+expectContains("thought desktop note", "思考是一张 1440 / 1920 宽屏手稿桌");
+expectContains("failure desktop note", "失败记录是一间 1440 / 1920 宽屏档案库");
+expectContains("journal desktop note", "每日记录是一面 1440 / 1920 宽屏日历墙");
+expectContains("future desktop note", "给未来的信是一张 1440 / 1920 宽屏书桌");
+expectContains("afterword desktop note", "后记是一封 1440 / 1920 宽屏收束信");
+
+const oldSmallModuleMarkers = [
+  "profile-id",
+  "lab-files",
+  "book-spine summary",
+  "photo-grid"
+];
+for (const marker of oldSmallModuleMarkers) {
+  if (html.includes(marker)) {
+    throw new Error(`small module layout still present: ${marker}`);
+  }
+}
 
 if (!/\.cover-panel\s*\{[\s\S]*?border:\s*0;[\s\S]*?background:\s*transparent;[\s\S]*?backdrop-filter:\s*none;[\s\S]*?box-shadow:\s*none;/m.test(html)) {
   throw new Error("cover panel still looks like a framed card");
